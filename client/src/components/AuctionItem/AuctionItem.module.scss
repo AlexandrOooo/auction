@@ -1,3 +1,42 @@
-.root{
-    
+$image-width: 320px;
+
+.root {
+  height: 180px;
+  border: 1px solid grey;
+  border-radius: 1rem;
+  display: flex;
+  margin: 0.5rem 0;
+
+  picture {
+    width: $image-width;
+    border-right: 1px solid grey;
+    border-radius: 1rem 0 0 1rem;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    img {
+      width: 100%;
+      opacity: 0.9;
+    }
+  }
+
+  .info {
+    padding-left: 1rem;
+    width: calc(100% - $image-width);
+
+    h2 {
+      margin-bottom: 0;
+    }
+
+    .details {
+      display: flex;
+      width: 100%;
+
+      div {
+        width: 50%;
+      }
+    }
+  }
 }
