@@ -1,0 +1,21 @@
+.root {
+  width: 80vw;
+  margin: 40px auto;
+  display: flex;
+
+  picture {
+    width: 480px;
+    height: 320px;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    img{
+        min-width: 100%;
+        min-height: 100%;
+    }
+  }
+
+  
+}

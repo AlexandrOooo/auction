@@ -18,7 +18,7 @@ const router = createBrowserRouter([
     element: <Auth type="sign-up" />,
   },
   {
-    path: "/:id",
+    path: "/auction/:id",
     element: <Auction />,
   },
 ]);

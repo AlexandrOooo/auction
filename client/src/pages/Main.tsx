@@ -1,21 +1,14 @@
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
+import AuctionItem from "../components/AuctionItem/AuctionItem";
 
 import Button from "@mui/material/Button";
 import styles from "./styles/Main.module.scss";
-import AuctionItem from "../components/AuctionItem/AuctionItem";
+import { Auction } from "../@types/types";
 // import axios from "../axios";
 
-type AuctionItem = {
-  id: number;
-  title: string;
-  last_bet: number;
-  expired_time: number;
-  imageUrl: string;
-};
-
 const Main: React.FC = () => {
-  const [auctions, setAuctions] = useState<AuctionItem[]>([]);
+  const [auctions, setAuctions] = useState<Auction[]>([]);
 
   useEffect(() => {
     const getAuctions = async () => {
@@ -24,23 +17,29 @@ const Main: React.FC = () => {
         {
           id: 0,
           title: "The first car ever",
+          creator: "@vlad_kvlchk",
           last_bet: 120000,
           expired_time: Date.now() + 5 * 24 * 60 * 60 * 1000,
-          imageUrl: ''
+          imageUrl:
+            "https://group.mercedes-benz.com/bilder/konzern/tradition/geschichte/anfaenge-des-automobils/benz-patent-motorwagen-w1680xh945-cutout.png",
         },
         {
           id: 1,
           title: "The second car ever",
+          creator: "@vlad_kvlchk",
           last_bet: 10000,
           expired_time: Date.now() + 12 * 24 * 60 * 60 * 1000,
-          imageUrl: ''
+          imageUrl:
+            "https://www.iliketowastemytime.com/sites/default/files/mercedes-benz-300sl-old-restoration1.jpg",
         },
         {
           id: 3,
           title: "Nokia 3310",
+          creator: "@vlad_kvlchk",
           last_bet: 120,
           expired_time: Date.now() + 4 * 60 * 60 * 1000,
-          imageUrl: ''
+          imageUrl:
+            "https://content2.rozetka.com.ua/goods/images/big/310881485.jpg",
         },
       ];
 
@@ -61,11 +60,21 @@ const Main: React.FC = () => {
         </Button>
       </header>
       <main>
-        <ul>{auctions.map(item => (
-          <li>
-            <AuctionItem imageUrl={item.imageUrl}/>
-          </li>
-        ))}</ul>
+        <ul>
+          {auctions.map((item) => (
+            <li key={item.id}>
+              <Link to={"/auction/" + item.id}>
+                <AuctionItem
+                  imageUrl={item.imageUrl}
+                  title={item.title}
+                  creator={item.creator}
+                  last_bet={item.last_bet}
+                  expired_time={item.expired_time}
+                />
+              </Link>
+            </li>
+          ))}
+        </ul>
       </main>
     </div>
   );
