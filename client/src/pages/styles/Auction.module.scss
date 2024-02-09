@@ -1,21 +1,29 @@
+$image-width: 480px;
+
 .root {
-  width: 80vw;
-  margin: 40px auto;
-  display: flex;
-
-  picture {
-    width: 480px;
-    height: 320px;
-    overflow: hidden;
+  main {
+    width: 80vw;
+    margin: 40px auto;
     display: flex;
-    align-items: center;
-    justify-content: center;
+    flex-wrap: wrap;
 
-    img{
+    picture {
+      width: $image-width;
+      height: 320px;
+      overflow: hidden;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+
+      img {
         min-width: 100%;
         min-height: 100%;
+      }
+    }
+
+    .info {
+      width: calc(100% - $image-width - 2rem);
+      padding: 0 1rem;
     }
   }
-
-  
 }

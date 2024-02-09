@@ -2,9 +2,9 @@ import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import AuctionItem from "../components/AuctionItem/AuctionItem";
 
-import Button from "@mui/material/Button";
 import styles from "./styles/Main.module.scss";
 import { Auction } from "../@types/types";
+import Header from "../components/Header/Header";
 // import axios from "../axios";
 
 const Main: React.FC = () => {
@@ -51,14 +51,7 @@ const Main: React.FC = () => {
 
   return (
     <div className={styles.root}>
-      <header>
-        <Button variant="contained">
-          <Link to="/sign-in">Sign In</Link>
-        </Button>
-        <Button variant="contained">
-          <Link to="/sign-up">Sign Up</Link>
-        </Button>
-      </header>
+      <Header />
       <main>
         <ul>
           {auctions.map((item) => (
