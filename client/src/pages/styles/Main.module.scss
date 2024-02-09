@@ -1,11 +1,18 @@
 .root {
   main {
-    ul {
+    .auctions {
       list-style: none;
       display: flex;
       flex-direction: column;
       width: 80vw;
       margin: 0 auto;
+      padding: 0;
+    }
+
+    .pagination {
+      display: flex;
+      justify-content: center;
+      margin: 24px 0;
     }
   }
 }

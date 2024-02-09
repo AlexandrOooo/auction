@@ -5,9 +5,16 @@ import AuctionItem from "../components/AuctionItem/AuctionItem";
 import styles from "./styles/Main.module.scss";
 import { Auction } from "../@types/types";
 import Header from "../components/Header/Header";
+import Pagination from "@mui/material/Pagination";
+import { selectFilter } from "../redux/slices/filter/selectors";
+import { useSelector } from "react-redux";
+import { UseAppDispatch } from "../redux/store";
+import { setCurrentPage } from "../redux/slices/filter/slice";
 // import axios from "../axios";
 
 const Main: React.FC = () => {
+  const dispatch = UseAppDispatch();
+  const { currentPage, amountOfPages } = useSelector(selectFilter);
   const [auctions, setAuctions] = useState<Auction[]>([]);
 
   useEffect(() => {
@@ -49,11 +56,15 @@ const Main: React.FC = () => {
     getAuctions();
   }, []);
 
+  const onChangePage = (event: React.ChangeEvent<unknown>, value: number) => {
+    dispatch(setCurrentPage(value));
+  };
+
   return (
     <div className={styles.root}>
       <Header />
       <main>
-        <ul>
+        <ul className={styles.auctions}>
           {auctions.map((item) => (
             <li key={item.id}>
               <Link to={"/auction/" + item.id}>
@@ -68,6 +79,14 @@ const Main: React.FC = () => {
             </li>
           ))}
         </ul>
+        <Pagination
+          className={styles.pagination}
+          count={amountOfPages}
+          variant="outlined"
+          shape="rounded"
+          page={currentPage}
+          onChange={onChangePage}
+        />
       </main>
     </div>
   );
