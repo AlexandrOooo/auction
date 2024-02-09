@@ -1,35 +1,35 @@
-import style from "./AuctionItem.module.scss";
+import styles from "./AuctionItem.module.scss";
 
 type AuctionItemType = {
   imageUrl: string;
   title: string;
   creator: string;
-  last_bet: number;
-  expired_time: number;
+  lastBet: number;
+  expiredTime: number;
 };
 
 const AuctionItem: React.FC<AuctionItemType> = ({
   imageUrl,
   title,
   creator,
-  last_bet,
-  expired_time,
+  lastBet,
+  expiredTime,
 }) => {
   return (
-    <div className={style.root}>
+    <div className={styles.root}>
       <picture>
         <img src={imageUrl} alt="photo" />
       </picture>
-      <div className={style.info}>
+      <div className={styles.info}>
         <h2>{title}</h2>
-        <div className={style.details}>
+        <div className={styles.details}>
           <div>
-            <p>last bet: ${last_bet}</p>
+            <p>last bet: ${lastBet}</p>
             <p>creator: {creator}</p>
           </div>
           <div>
             <p>ends in:</p>
-            <h3>{expired_time - Date.now() + "ms"}</h3>
+            <h3>{expiredTime - Date.now() + "ms"}</h3>
           </div>
         </div>
       </div>

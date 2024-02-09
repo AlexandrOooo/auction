@@ -21,3 +21,8 @@ export enum AuctionModalType {
   Edit = "edit",
   Create = "create",
 }
+
+export enum AuthType {
+  signIn = "sign-in",
+  signUp = "sign-up",
+}

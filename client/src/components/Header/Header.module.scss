@@ -4,8 +4,10 @@
   margin: 0 auto;
   justify-content: space-between;
   border-bottom: 1px solid #eaeaea;
+}
 
-  button {
-    margin: 4px;
-  }
+.right-side {
+  display: flex;
+  gap: 4px;
+  align-items: center;
 }

@@ -1,21 +1,24 @@
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
+import Pagination from "@mui/material/Pagination";
 import AuctionItem from "../components/AuctionItem/AuctionItem";
-
 import styles from "./styles/Main.module.scss";
 import { Auction } from "../@types/types";
 import Header from "../components/Header/Header";
-import Pagination from "@mui/material/Pagination";
-import { DEFAULT_CURRENT_SHEET, DEFAULT_AMOUNT_OF_SHEETS } from "../constants/defaultValues";
+import {
+  DEFAULT_CURRENT_SHEET,
+  DEFAULT_AMOUNT_OF_SHEETS,
+} from "../constants/defaultValues";
 
 const Main: React.FC = () => {
-  const [currentSheet, setCurrentSheet] = useState<number>(DEFAULT_CURRENT_SHEET);
-  const [amountOfSheets, setAmountOfSheets] = useState<number>(DEFAULT_AMOUNT_OF_SHEETS);
+  const [currentSheet, setCurrentSheet] = useState<number>(
+    DEFAULT_CURRENT_SHEET
+  );
+
   const [auctions, setAuctions] = useState<Auction[]>([]);
 
   useEffect(() => {
     const getAuctions = async () => {
-      // const { data } = await axios.get('/auctions');
       const data = [
         {
           id: 0,
@@ -68,8 +71,8 @@ const Main: React.FC = () => {
                   imageUrl={item.imageUrl}
                   title={item.title}
                   creator={item.creator}
-                  last_bet={item.last_bet}
-                  expired_time={item.expired_time}
+                  lastBet={item.last_bet}
+                  expiredTime={item.expired_time}
                 />
               </Link>
             </li>
@@ -77,7 +80,7 @@ const Main: React.FC = () => {
         </ul>
         <Pagination
           className={styles.pagination}
-          count={amountOfSheets}
+          count={DEFAULT_AMOUNT_OF_SHEETS}
           variant="outlined"
           shape="rounded"
           page={currentSheet}
