@@ -7,7 +7,6 @@ import { Auction } from "../@types/types";
 import Header from "../components/Header/Header";
 import Pagination from "@mui/material/Pagination";
 import { DEFAULT_CURRENT_SHEET, DEFAULT_AMOUNT_OF_SHEETS } from "../constants/defaultValues";
-// import axios from "../axios";
 
 const Main: React.FC = () => {
   const [currentSheet, setCurrentSheet] = useState<number>(DEFAULT_CURRENT_SHEET);
