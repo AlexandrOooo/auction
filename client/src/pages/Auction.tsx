@@ -1,14 +1,24 @@
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
-import { AuctionFull } from "../@types/types";
+import {
+  Button,
+  TextField,
+  OutlinedInput,
+  InputLabel,
+  InputAdornment,
+  FormControl,
+} from "@mui/material";
+
 import axios from "../axios";
-import Header from "../components/Header/Header";
 import style from "./styles/Auction.module.scss";
+import { AuctionFull } from "../@types/types";
+import Header from "../components/Header/Header";
 
 const Auction = () => {
   const { id } = useParams();
   const [data, setData] = useState<AuctionFull | null>(null);
   const [isLoading, setLoading] = useState<boolean>(true);
+  const [bet, setBet] = useState<number>(0);
 
   useEffect(() => {
     const getAuction = async () => {
@@ -36,6 +46,10 @@ const Auction = () => {
     setLoading(false);
   }, []);
 
+  const onChangeBet = (event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+    setBet(+event.target.value);
+  }
+
   if (isLoading) {
     return <>loading...</>;
   }
@@ -49,7 +63,29 @@ const Auction = () => {
         </picture>
         <div className={style.info}>
           <h2>{data?.title}</h2>
-          <p>{data?.description}</p>
+          <p>last bet: ${data?.last_bet}</p>
+          <div className={style.betOutline}>
+            <b>make your bet:</b>
+            <div className={style.betForm}>
+              <FormControl sx={{ m: 1, width: "25ch" }}>
+                <InputLabel htmlFor="outlined-adornment-amount">
+                  New Bet
+                </InputLabel>
+                <OutlinedInput
+                  id="outlined-adornment-amount"
+                  startAdornment={
+                    <InputAdornment position="start">$</InputAdornment>
+                  }
+                  label="Amount"
+                  value={bet}
+                  onChange={onChangeBet}
+                />
+              </FormControl>
+              <Button variant="contained" color="success" disabled={+data?.last_bet! >= bet}> 
+                bet
+              </Button>
+            </div>
+          </div>
         </div>
       </main>
     </div>
