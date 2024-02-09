@@ -8,7 +8,7 @@ import {
 } from "@mui/material";
 import React, { useState } from "react";
 import { AuctionModalType } from "../../@types/types";
-import style from "./AuctionItemModal.module.scss";
+import styles from "./AuctionItemModal.module.scss";
 
 interface AuctionItemModalProps {
   isOpen: boolean;
@@ -73,7 +73,7 @@ const AuctionItemModal: React.FC<AuctionItemModalProps> = ({
         closeAfterTransition
         slots={{ backdrop: Backdrop }}
       >
-        <div className={style["modal-content"]}>
+        <div className={styles["modal-content"]}>
           <h2>
             {type === AuctionModalType.Create ? "Create modal" : "Edit modal"}
           </h2>
@@ -81,7 +81,7 @@ const AuctionItemModal: React.FC<AuctionItemModalProps> = ({
             type="text"
             label="title"
             variant="outlined"
-            className={style["modal-title-field"]}
+            className={styles["modal-title-field"]}
             value={title}
             onChange={(e) => setTitle(e.target.value)}
           />
@@ -90,13 +90,13 @@ const AuctionItemModal: React.FC<AuctionItemModalProps> = ({
             placeholder="Description"
             minRows={3}
             maxRows={5}
-            className={style["modal-description-field"]}
+            className={styles["modal-description-field"]}
             value={description}
             onChange={(e) => setDescription(e.target.value)}
           />
           <h2>Попередній перегляд зображення:</h2>
-          <div className={style["modal-image-block"]}>
-            <div className={style["modal-image"]}>
+          <div className={styles["modal-image-block"]}>
+            <div className={styles["modal-image"]}>
               <img
                 src={
                   imagePreview
@@ -111,11 +111,11 @@ const AuctionItemModal: React.FC<AuctionItemModalProps> = ({
             <Input
               type="file"
               onChange={handleImageChange}
-              className={style["modal-input-image"]}
+              className={styles["modal-input-image"]}
             />
           </div>
 
-          <div className={style["modal-actions"]}>
+          <div className={styles["modal-actions"]}>
             {type === AuctionModalType.Create ? (
               <>
                 <Button onClick={onClean}>reset</Button>
@@ -139,7 +139,7 @@ const Backdrop = React.forwardRef<HTMLDivElement, { open?: boolean }>(
     const { open, ...other } = props;
     return (
       <Fade in={open}>
-        <div ref={ref} {...other} className={style["backdrop"]} />
+        <div ref={ref} {...other} className={styles["backdrop"]} />
       </Fade>
     );
   }

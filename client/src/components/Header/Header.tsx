@@ -1,20 +1,20 @@
 import { Link } from "react-router-dom";
 import { Button } from "@mui/material";
-import style from "./Header.module.scss";
 import { useSelector } from "react-redux";
+import styles from "./Header.module.scss";
 import { selectUser } from "../../redux/slices/user/selectors";
 
 const Header: React.FC = () => {
   const { isAuth } = useSelector(selectUser);
 
   return (
-    <header className={style.root}>
-      <div className={style.leftSide}>
+    <header className={styles.root}>
+      <div>
         <Link to="/">
           <h3>AUUU!</h3>
         </Link>
       </div>
-      <div className={style.rightSide}>
+      <div className={styles["right-side"]}>
         {isAuth ? (
           <>
             <Button variant="contained">Create lot</Button>
