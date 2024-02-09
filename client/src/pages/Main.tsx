@@ -6,15 +6,12 @@ import styles from "./styles/Main.module.scss";
 import { Auction } from "../@types/types";
 import Header from "../components/Header/Header";
 import Pagination from "@mui/material/Pagination";
-import { selectFilter } from "../redux/slices/filter/selectors";
-import { useSelector } from "react-redux";
-import { UseAppDispatch } from "../redux/store";
-import { setCurrentPage } from "../redux/slices/filter/slice";
+import { DEFAULT_CURRENT_SHEET, DEFAULT_AMOUNT_OF_SHEETS } from "../constants/defaultValues";
 // import axios from "../axios";
 
 const Main: React.FC = () => {
-  const dispatch = UseAppDispatch();
-  const { currentPage, amountOfPages } = useSelector(selectFilter);
+  const [currentSheet, setCurrentSheet] = useState<number>(DEFAULT_CURRENT_SHEET);
+  const [amountOfSheets, setAmountOfSheets] = useState<number>(DEFAULT_AMOUNT_OF_SHEETS);
   const [auctions, setAuctions] = useState<Auction[]>([]);
 
   useEffect(() => {
@@ -56,8 +53,8 @@ const Main: React.FC = () => {
     getAuctions();
   }, []);
 
-  const onChangePage = (event: React.ChangeEvent<unknown>, value: number) => {
-    dispatch(setCurrentPage(value));
+  const onChangeSheet = (event: React.ChangeEvent<unknown>, sheet: number) => {
+    setCurrentSheet(sheet);
   };
 
   return (
@@ -81,11 +78,11 @@ const Main: React.FC = () => {
         </ul>
         <Pagination
           className={styles.pagination}
-          count={amountOfPages}
+          count={amountOfSheets}
           variant="outlined"
           shape="rounded"
-          page={currentPage}
-          onChange={onChangePage}
+          page={currentSheet}
+          onChange={onChangeSheet}
         />
       </main>
     </div>
