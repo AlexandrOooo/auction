@@ -9,6 +9,8 @@ import {
 } from "@mui/material";
 import React, { useState } from "react";
 import { AuctionModalType } from "../../@types/types";
+import { updateLot } from "../../redux/slices/lots/requests";
+import { UseAppDispatch } from "../../redux/store";
 import styles from "./AuctionItemModal.module.scss";
 
 interface AuctionItemModalProps {
@@ -32,8 +34,8 @@ const AuctionItemModal: React.FC<AuctionItemModalProps> = ({
     initialData?.imagePreview ?? ""
   );
   const [startPrice, setStartPrice] = useState<number>();
-
   const [open, setOpen] = useState(false);
+  const useAppDispatch = UseAppDispatch();
 
   const openModal = () => {
     setOpen(true);
@@ -69,7 +71,16 @@ const AuctionItemModal: React.FC<AuctionItemModalProps> = ({
 
   const onDelete = () => {};
 
-  const onEdit = () => {};
+  const onEdit = () => {
+    useAppDispatch(
+      updateLot({
+        id: 0,
+        photos: [imagePreview],
+        name: title,
+        description,
+      })
+    );
+  };
 
   return (
     <>
