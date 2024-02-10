@@ -1,7 +1,8 @@
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
-import Main from "./pages/Main"
-import Auction from "./pages/Auction"
-import Auth from './pages/Auth';
+import Main from "./pages/Main";
+import Auction from "./pages/Auction";
+import Auth from "./pages/Auth";
+import { AuthType } from "./@types/types";
 
 const router = createBrowserRouter([
   {
@@ -10,11 +11,11 @@ const router = createBrowserRouter([
   },
   {
     path: "/sign-in",
-    element: <Auth  type="sign-in" />,
+    element: <Auth type={AuthType.signIn} />,
   },
   {
     path: "/sign-up",
-    element: <Auth type="sign-up" />,
+    element: <Auth type={AuthType.signUp} />,
   },
   {
     path: "/auction/:id",

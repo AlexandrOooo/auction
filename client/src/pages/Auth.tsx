@@ -1,13 +1,14 @@
 import { Button, TextField } from "@mui/material";
 import { useState } from "react";
 import { Link } from "react-router-dom";
+import { AuthType } from "../@types/types";
 import styles from "./styles/Auth.module.scss";
 
-type AuthType = {
-  type: "sign-in" | "sign-up";
-};
+interface AuthProps {
+  type: AuthType;
+}
 
-const Auth: React.FC<AuthType> = ({ type }) => {
+const Auth: React.FC<AuthProps> = ({ type }) => {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
 
@@ -19,8 +20,7 @@ const Auth: React.FC<AuthType> = ({ type }) => {
     console.log(data);
   };
 
-  /* SIGN IN */
-  if (type === "sign-in") {
+  if (type === AuthType.signIn) {
     return (
       <div className={styles.root}>
         <h1>Sign In</h1>
@@ -53,7 +53,6 @@ const Auth: React.FC<AuthType> = ({ type }) => {
     );
   }
 
-  /* SIGN UP */
   return (
     <div className={styles.root}>
       <h1>Sign Up</h1>
