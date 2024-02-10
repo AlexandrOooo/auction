@@ -6,6 +6,8 @@ import {
   InputLabel,
   InputAdornment,
   FormControl,
+  Tabs,
+  Tab,
 } from "@mui/material";
 import { useSelector } from "react-redux";
 
@@ -16,6 +18,8 @@ import AuctionItemModal from "../../components/AuctionItemModal/AuctionItemModal
 import { fetchLot } from "../../redux/slices/lots/requests";
 import { UseAppDispatch } from "../../redux/store";
 import { selectAllLots } from "../../redux/slices/lots/selector";
+import BetHistory from "../../components/BetHistory/BetHistory";
+import Chat from "../../components/Chat/Chat";
 
 const Auction = () => {
   const { id } = useParams();
@@ -24,6 +28,7 @@ const Auction = () => {
   const [bet, setBet] = useState<number>(0);
   const useAppDispatch = UseAppDispatch();
   const { lot } = useSelector(selectAllLots);
+  const [currentTabPage, setCurrentTabPage] = useState<number>(0);
 
   useEffect(() => {
     const getAuction = async () => {
@@ -77,7 +82,6 @@ const Auction = () => {
                     label="Amount"
                     value={bet}
                     onChange={onChangeBet}
-                    type="number"
                   />
                 </FormControl>
                 <Button
@@ -89,6 +93,26 @@ const Auction = () => {
                 </Button>
               </div>
             </div>
+          )}
+        </div>
+        <div className={styles.bottomPanel}>
+          <Tabs
+            value={currentTabPage}
+            onChange={(e, newPage: number) => setCurrentTabPage(newPage)}
+            aria-label="basic tabs example"
+          >
+            <Tab label="Order history" />
+            <Tab label="Chat" />
+            <Tab label="Lot description" />
+          </Tabs>
+          {currentTabPage === 0 ? (
+            <BetHistory />
+          ) : currentTabPage === 1 ? (
+            <Chat />
+          ) : currentTabPage === 2 ? (
+            <p>{data?.description}</p>
+          ) : (
+            <></>
           )}
         </div>
       </main>
