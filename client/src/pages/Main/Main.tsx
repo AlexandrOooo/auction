@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import AuctionItem from "../../components/AuctionItem/AuctionItem";
 
-import styles from "./styles/Main.module.scss";
+import styles from "./Main.module.scss";
 import { Auction } from "../../@types/types";
 import Header from "../../components/Header/Header";
 // import axios from "../axios";
@@ -53,7 +53,7 @@ const Main: React.FC = () => {
     <div className={styles.root}>
       <Header />
       <main>
-        <ul>
+        <ul className={styles["auctions"]}>
           {auctions.map((item) => (
             <li key={item.id}>
               <Link to={"/auction/" + item.id}>
