@@ -2,14 +2,12 @@ import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import {
   Button,
-  TextField,
   OutlinedInput,
   InputLabel,
   InputAdornment,
   FormControl,
 } from "@mui/material";
 
-import axios from "../axios";
 import style from "./styles/Auction.module.scss";
 import { AuctionFull } from "../@types/types";
 import Header from "../components/Header/Header";
@@ -23,13 +21,12 @@ const Auction = () => {
   useEffect(() => {
     const getAuction = async () => {
       try {
-        // const { data } = await axios.get(`/auction/${id}`);
         const data = {
           id: 0,
           title: "The first car ever",
           creator: "@vlad_kvlchk",
-          last_bet: 120000,
-          expired_time: Date.now() + 5 * 24 * 60 * 60 * 1000,
+          lastBet: 120000,
+          expiredTime: Date.now() + 5 * 24 * 60 * 60 * 1000,
           imageUrl:
             "https://group.mercedes-benz.com/bilder/konzern/tradition/geschichte/anfaenge-des-automobils/benz-patent-motorwagen-w1680xh945-cutout.png",
           description: `This is the first car ever. I want to sell it to spend all money on poor children that don't have ability to buy food and can't afford enough water for living and growing up. When I was a child I had to work hard by my own to earn a living and I want noone to have as hard childhood as I had.
@@ -47,7 +44,7 @@ const Auction = () => {
   }, []);
 
   const onChangeBet = (event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
-    setBet(+event.target.value);
+    setBet(Number(event.target.value));
   }
 
   if (isLoading) {
@@ -63,7 +60,7 @@ const Auction = () => {
         </picture>
         <div className={style.info}>
           <h2>{data?.title}</h2>
-          <p>last bet: ${data?.last_bet}</p>
+          <p>last bet: ${data?.lastBet}</p>
           <div className={style.betOutline}>
             <b>make your bet:</b>
             <div className={style.betForm}>
@@ -81,7 +78,7 @@ const Auction = () => {
                   onChange={onChangeBet}
                 />
               </FormControl>
-              <Button variant="contained" color="success" disabled={+data?.last_bet! >= bet}> 
+              <Button variant="contained" color="success" disabled={+data?.lastBet! >= bet}> 
                 bet
               </Button>
             </div>

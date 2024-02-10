@@ -11,8 +11,8 @@ export type AuctionFull = {
     id: number;
     title: string;
     creator: string;
-    last_bet: number;
-    expired_time: number;
+    lastBet: number;
+    expiredTime: number;
     imageUrl: string;
     description: string;
   };
