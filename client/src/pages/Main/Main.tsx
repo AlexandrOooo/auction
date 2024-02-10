@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import AuctionItem from "../../components/AuctionItem/AuctionItem";
 
-import styles from "./Main.module.scss";
+import styles from "./styles/Main.module.scss";
 import { Auction } from "../../@types/types";
 import Header from "../../components/Header/Header";
 // import axios from "../axios";
@@ -61,8 +61,8 @@ const Main: React.FC = () => {
                   imageUrl={item.imageUrl}
                   title={item.title}
                   creator={item.creator}
-                  last_bet={item.last_bet}
-                  expired_time={item.expired_time}
+                  lastBet={item.last_bet}
+                  expiredTime={item.expired_time}
                 />
               </Link>
             </li>
