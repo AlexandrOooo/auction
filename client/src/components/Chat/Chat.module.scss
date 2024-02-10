@@ -1,3 +1,40 @@
-.root{
-    
+.root {
+  border: 1px solid rgb(200, 200, 200);
+  border-radius: 4px;
+  background-color: rgb(255, 255, 235);
+
+  .days {
+    list-style: none;
+    padding: 0;
+    height: 600px;
+    overflow: scroll;
+  }
+
+  .dayContainer {
+    text-align: center;
+
+    .day {
+      border-radius: 1000px;
+      padding: 4px 12px;
+      background-color: rgba(0, 0, 0, 0.448);
+      width: max-content;
+      margin: 0 auto;
+      color: white;
+    }
+  }
+
+  .message {
+    display: flex;
+    align-items: center;
+
+    .messageAuthor {
+      margin-left: 4px;
+    }
+  }
+
+  .noMessage {
+    text-align: center;
+    margin-top: 280px;
+    color: grey;
+  }
 }

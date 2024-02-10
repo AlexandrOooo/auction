@@ -165,6 +165,10 @@ const BetHistory = () => {
     setAmountOfShowedBets((prev) => prev + 10);
   };
 
+  if(isLoading){
+    return <p>loading...</p>
+  }
+
   return (
     <div className={styles.root}>
       <ul className={styles.betList}>
@@ -178,7 +182,7 @@ const BetHistory = () => {
       </ul>
       {betList.length - amountOfShowedBets > 0 ? (
         <Button onClick={onShowMore}>
-          `Show more (${betList.length - amountOfShowedBets}) ↓`
+          Show more ({betList.length - amountOfShowedBets}) ↓
         </Button>
       ) : (
         <></>
