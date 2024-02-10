@@ -3,7 +3,6 @@ import { Button } from "@mui/material";
 import { useSelector } from "react-redux";
 import styles from "./Header.module.scss";
 import { selectUser } from "../../redux/slices/user/selectors";
-
 const Header: React.FC = () => {
   const { isAuth } = useSelector(selectUser);
 
@@ -15,11 +14,7 @@ const Header: React.FC = () => {
         </Link>
       </div>
       <div className={styles["right-side"]}>
-        {isAuth ? (
-          <>
-            <Button variant="contained">Create lot</Button>
-          </>
-        ) : (
+        {!isAuth && (
           <>
             <Button variant="contained">
               <Link to="/sign-in">Sign In</Link>

@@ -3,6 +3,7 @@ import {
   Fade,
   Input,
   Modal,
+  OutlinedInput,
   TextareaAutosize,
   TextField,
 } from "@mui/material";
@@ -11,9 +12,7 @@ import { AuctionModalType } from "../../@types/types";
 import styles from "./AuctionItemModal.module.scss";
 
 interface AuctionItemModalProps {
-  isOpen: boolean;
   type: AuctionModalType;
-  handleClose: () => void;
   initialData?: {
     title: string;
     description: string;
@@ -22,8 +21,6 @@ interface AuctionItemModalProps {
 }
 
 const AuctionItemModal: React.FC<AuctionItemModalProps> = ({
-  isOpen,
-  handleClose,
   type,
   initialData,
 }) => {
@@ -34,6 +31,17 @@ const AuctionItemModal: React.FC<AuctionItemModalProps> = ({
   const [imagePreview, setImagePreview] = useState<string>(
     initialData?.imagePreview ?? ""
   );
+  const [startPrice, setStartPrice] = useState<number>();
+
+  const [open, setOpen] = useState(false);
+
+  const openModal = () => {
+    setOpen(true);
+  };
+
+  const closeModal = () => {
+    setOpen(false);
+  };
 
   const handleImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
@@ -65,11 +73,14 @@ const AuctionItemModal: React.FC<AuctionItemModalProps> = ({
 
   return (
     <>
+      <Button onClick={openModal}>
+        {type === AuctionModalType.Create ? "Create lot" : "Edit lot"}
+      </Button>
       <Modal
         aria-labelledby="transition-modal-title"
         aria-describedby="transition-modal-description"
-        open={isOpen}
-        onClose={handleClose}
+        open={open}
+        onClose={closeModal}
         closeAfterTransition
         slots={{ backdrop: Backdrop }}
       >
@@ -94,6 +105,18 @@ const AuctionItemModal: React.FC<AuctionItemModalProps> = ({
             value={description}
             onChange={(e) => setDescription(e.target.value)}
           />
+          {type === AuctionModalType.Create && (
+            <>
+              <p>Start price:</p>
+              <OutlinedInput
+                className={styles["modal-start-price"]}
+                type="number"
+                value={startPrice}
+                onChange={(e) => setStartPrice(Number(e.target.value))}
+              />
+            </>
+          )}
+
           <h2>Попередній перегляд зображення:</h2>
           <div className={styles["modal-image-block"]}>
             <div className={styles["modal-image"]}>
