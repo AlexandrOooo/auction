@@ -6,18 +6,23 @@ import {
   InputLabel,
   InputAdornment,
   FormControl,
+  Tabs,
+  Tab,
 } from "@mui/material";
 
 import { AuctionFull, AuctionModalType } from "../../@types/types";
 import Header from "../../components/Header/Header";
 import styles from "./Auction.module.scss";
 import AuctionItemModal from "../../components/AuctionItemModal/AuctionItemModal";
+import BetHistory from "../../components/BetHistory/BetHistory";
+import Chat from "../../components/Chat/Chat";
 
 const Auction = () => {
   const { id } = useParams();
   const [data, setData] = useState<AuctionFull | null>(null);
   const [isLoading, setLoading] = useState<boolean>(true);
   const [bet, setBet] = useState<number>(0);
+  const [currentTabPage, setCurrentTabPage] = useState<number>(0);
 
   useEffect(() => {
     const getAuction = async () => {
@@ -71,33 +76,47 @@ const Auction = () => {
           {true ? (
             <AuctionItemModal type={AuctionModalType.Edit} />
           ) : (
-            <div className={styles.betOutline}>
-              <b>make your bet:</b>
-              <div className={styles.betForm}>
-                <FormControl sx={{ m: 1, width: "25ch" }}>
-                  <InputLabel htmlFor="outlined-adornment-amount">
-                    New Bet
-                  </InputLabel>
-                  <OutlinedInput
-                    id="outlined-adornment-amount"
-                    startAdornment={
-                      <InputAdornment position="start">$</InputAdornment>
-                    }
-                    label="Amount"
-                    value={bet}
-                    onChange={onChangeBet}
-                    type="number"
-                  />
-                </FormControl>
-                <Button
-                  variant="contained"
-                  color="success"
-                  disabled={+data?.lastBet! >= bet}
-                >
-                  bet
-                </Button>
-              </div>
+          <div className={styles.betOutline}>
+            <b>make your bet:</b>
+            <div className={styles.betForm}>
+              <FormControl sx={{ m: 1, width: "25ch" }}>
+                <InputLabel htmlFor="outlined-adornment-amount">
+                  New Bet
+                </InputLabel>
+                <OutlinedInput
+                  id="outlined-adornment-amount"
+                  startAdornment={
+                    <InputAdornment position="start">$</InputAdornment>
+                  }
+                  label="Amount"
+                  value={bet}
+                  onChange={onChangeBet}
+                />
+              </FormControl>
+              <Button variant="contained" color="success" disabled={+data?.lastBet! >= bet}> 
+                bet
+              </Button>
             </div>
+          </div>)}
+        </div>
+        <div className={styles.bottomPanel}>
+          <Tabs
+            value={currentTabPage}
+            onChange={(e, newPage: number) => setCurrentTabPage(newPage)}
+            aria-label="basic tabs example"
+          >
+            <Tab label="Order history" />
+            <Tab label="Chat" />
+            <Tab label="Lot description" />
+          </Tabs>
+          {currentTabPage === 0 ? (
+            <BetHistory />
+          ) : currentTabPage === 1 ? (
+            <Chat />
+          ) : currentTabPage === 2 ? (
+            <p>{data?.description}</p>
+          ) : (
+            <></>
           )}
         </div>
       </main>

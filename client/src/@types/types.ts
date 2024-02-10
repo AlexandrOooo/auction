@@ -28,3 +28,9 @@ export enum AuthType {
   signIn = "sign-in",
   signUp = "sign-up",
 }
+
+export type BetInHistory = {
+  username: string,
+  bet: number,
+  time: number,
+}
