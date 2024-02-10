@@ -6,17 +6,22 @@ import {
   InputLabel,
   InputAdornment,
   FormControl,
+  Tabs,
+  Tab,
 } from "@mui/material";
 
 import { AuctionFull } from "../../@types/types";
 import Header from "../../components/Header/Header";
 import styles from "./Auction.module.scss";
+import BetHistory from "../../components/BetHistory/BetHistory";
+import Chat from "../../components/Chat/Chat";
 
 const Auction = () => {
   const { id } = useParams();
   const [data, setData] = useState<AuctionFull | null>(null);
   const [isLoading, setLoading] = useState<boolean>(true);
   const [bet, setBet] = useState<number>(0);
+  const [currentTabPage, setCurrentTabPage] = useState<number>(0);
 
   useEffect(() => {
     const getAuction = async () => {
@@ -43,9 +48,11 @@ const Auction = () => {
     setLoading(false);
   }, []);
 
-  const onChangeBet = (event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+  const onChangeBet = (
+    event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
+  ) => {
     setBet(Number(event.target.value));
-  }
+  };
 
   if (isLoading) {
     return <>loading...</>;
@@ -78,11 +85,35 @@ const Auction = () => {
                   onChange={onChangeBet}
                 />
               </FormControl>
-              <Button variant="contained" color="success" disabled={+data?.lastBet! >= bet}> 
+              <Button
+                variant="contained"
+                color="success"
+                disabled={+data?.lastBet! >= bet}
+              >
                 bet
               </Button>
             </div>
           </div>
+        </div>
+        <div className={styles.bottomPanel}>
+          <Tabs
+            value={currentTabPage}
+            onChange={(e, newPage: number) => setCurrentTabPage(newPage)}
+            aria-label="basic tabs example"
+          >
+            <Tab label="Order history" />
+            <Tab label="Chat" />
+            <Tab label="Lot description" />
+          </Tabs>
+          {currentTabPage === 0 ? (
+            <BetHistory />
+          ) : currentTabPage === 1 ? (
+            <Chat />
+          ) : currentTabPage === 2 ? (
+            <p>{data?.description}</p>
+          ) : (
+            <></>
+          )}
         </div>
       </main>
     </div>

@@ -2,8 +2,8 @@ export type Auction = {
   id: number;
   title: string;
   creator: string;
-  lastBet: number;
-  expiredTime: number;
+  last_bet: number;
+  expired_time: number;
   imageUrl: string;
 };
 
@@ -26,4 +26,10 @@ export enum AuctionModalType {
 export enum AuthType {
   signIn = "sign-in",
   signUp = "sign-up",
+}
+
+export type BetInHistory = {
+  username: string,
+  bet: number,
+  time: number,
 }
