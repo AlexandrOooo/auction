@@ -1,7 +1,7 @@
 import { Button, TextField } from "@mui/material";
 import { useState } from "react";
 import { Link } from "react-router-dom";
-import styles from "./styles/Auth.module.scss";
+import styles from "./Auth.module.scss";
 
 type AuthType = {
   type: "sign-in" | "sign-up";

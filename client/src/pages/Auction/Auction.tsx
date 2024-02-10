@@ -1,9 +1,9 @@
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
-import { AuctionFull } from "../@types/types";
-import axios from "../axios";
-import Header from "../components/Header/Header";
-import style from "./styles/Auction.module.scss";
+import { AuctionFull } from "../../@types/types";
+import axios from "../../axios";
+import Header from "../../components/Header/Header";
+import style from "./Auction.module.scss";
 
 const Auction = () => {
   const { id } = useParams();
