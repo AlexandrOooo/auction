@@ -23,14 +23,18 @@
     }
   }
 
-  .message{
+  .message {
     display: flex;
     align-items: center;
 
-    .messageAuthor{
-        margin-left: 4px;
+    .messageAuthor {
+      margin-left: 4px;
     }
   }
 
-
+  .noMessage {
+    text-align: center;
+    margin-top: 280px;
+    color: grey;
+  }
 }
