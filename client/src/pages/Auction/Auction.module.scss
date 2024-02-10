@@ -23,7 +23,21 @@ $image-width: 480px;
 
     .info {
       width: calc(100% - $image-width - 2rem);
-      padding: 0 1rem;
+      padding: 0 16px;
+
+      .betOutline {
+        border: 1px solid #c2c2c2;
+        border-radius: 8px;
+        padding: 16px 48px;
+        width: min-content;
+
+
+        .betForm {
+          margin-top: 12px;
+          display: flex;
+          align-items: center;
+        }
+      }
     }
   }
 }

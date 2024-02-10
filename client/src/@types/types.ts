@@ -2,20 +2,21 @@ export type Auction = {
   id: number;
   title: string;
   creator: string;
-  last_bet: number;
-  expired_time: number;
+  lastBet: number;
+  expiredTime: number;
   imageUrl: string;
 };
 
 export type AuctionFull = {
-  id: number;
-  title: string;
-  creator: string;
-  last_bet: number;
-  expired_time: number;
-  imageUrl: string;
-  description: string;
-};
+    id: number;
+    title: string;
+    creator: string;
+    lastBet: number;
+    expiredTime: number;
+    imageUrl: string;
+    description: string;
+  };
+
 
 export enum AuctionModalType {
   Edit = "edit",
