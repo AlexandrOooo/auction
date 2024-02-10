@@ -3,7 +3,6 @@ import styles from "./AuctionItem.module.scss";
 type AuctionItemType = {
   imageUrl: string;
   title: string;
-  creator: string;
   lastBet: number;
   expiredTime: number;
 };
@@ -11,7 +10,6 @@ type AuctionItemType = {
 const AuctionItem: React.FC<AuctionItemType> = ({
   imageUrl,
   title,
-  creator,
   lastBet,
   expiredTime,
 }) => {
@@ -25,7 +23,6 @@ const AuctionItem: React.FC<AuctionItemType> = ({
         <div className={styles.details}>
           <div>
             <p>last bet: ${lastBet}</p>
-            <p>creator: {creator}</p>
           </div>
           <div>
             <p>ends in:</p>
