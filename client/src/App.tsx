@@ -1,7 +1,7 @@
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
-import Main from "./pages/Main";
-import Auction from "./pages/Auction";
-import Auth from "./pages/Auth";
+import Main from "./pages/Main/Main"
+import Auction from "./pages/Auction/Auction"
+import Auth from './pages/Auth/Auth';
 import { AuthType } from "./@types/types";
 
 const router = createBrowserRouter([

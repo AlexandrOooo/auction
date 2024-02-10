@@ -1,24 +1,18 @@
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
-import Pagination from "@mui/material/Pagination";
-import AuctionItem from "../components/AuctionItem/AuctionItem";
-import styles from "./styles/Main.module.scss";
-import { Auction } from "../@types/types";
-import Header from "../components/Header/Header";
-import {
-  DEFAULT_CURRENT_SHEET,
-  DEFAULT_AMOUNT_OF_SHEETS,
-} from "../constants/defaultValues";
+import AuctionItem from "../../components/AuctionItem/AuctionItem";
+
+import styles from "./Main.module.scss";
+import { Auction } from "../../@types/types";
+import Header from "../../components/Header/Header";
+// import axios from "../axios";
 
 const Main: React.FC = () => {
-  const [currentSheet, setCurrentSheet] = useState<number>(
-    DEFAULT_CURRENT_SHEET
-  );
-
   const [auctions, setAuctions] = useState<Auction[]>([]);
 
   useEffect(() => {
     const getAuctions = async () => {
+      // const { data } = await axios.get('/auctions');
       const data = [
         {
           id: 0,
@@ -55,15 +49,11 @@ const Main: React.FC = () => {
     getAuctions();
   }, []);
 
-  const onChangeSheet = (event: React.ChangeEvent<unknown>, sheet: number) => {
-    setCurrentSheet(sheet);
-  };
-
   return (
     <div className={styles.root}>
       <Header />
       <main>
-        <ul className={styles.auctions}>
+        <ul className={styles["auctions"]}>
           {auctions.map((item) => (
             <li key={item.id}>
               <Link to={"/auction/" + item.id}>
@@ -78,14 +68,6 @@ const Main: React.FC = () => {
             </li>
           ))}
         </ul>
-        <Pagination
-          className={styles.pagination}
-          count={DEFAULT_AMOUNT_OF_SHEETS}
-          variant="outlined"
-          shape="rounded"
-          page={currentSheet}
-          onChange={onChangeSheet}
-        />
       </main>
     </div>
   );

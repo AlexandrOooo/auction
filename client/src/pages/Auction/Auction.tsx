@@ -8,9 +8,9 @@ import {
   FormControl,
 } from "@mui/material";
 
-import style from "./styles/Auction.module.scss";
-import { AuctionFull } from "../@types/types";
-import Header from "../components/Header/Header";
+import { AuctionFull } from "../../@types/types";
+import Header from "../../components/Header/Header";
+import styles from "./Auction.module.scss";
 
 const Auction = () => {
   const { id } = useParams();
@@ -52,18 +52,18 @@ const Auction = () => {
   }
 
   return (
-    <div className={style.root}>
+    <div className={styles.root}>
       <Header />
       <main>
         <picture>
           <img src={data?.imageUrl} />
         </picture>
-        <div className={style.info}>
+        <div className={styles.info}>
           <h2>{data?.title}</h2>
           <p>last bet: ${data?.lastBet}</p>
-          <div className={style.betOutline}>
+          <div className={styles.betOutline}>
             <b>make your bet:</b>
-            <div className={style.betForm}>
+            <div className={styles.betForm}>
               <FormControl sx={{ m: 1, width: "25ch" }}>
                 <InputLabel htmlFor="outlined-adornment-amount">
                   New Bet

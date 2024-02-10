@@ -1,8 +1,8 @@
 import { Button, TextField } from "@mui/material";
 import { useState } from "react";
 import { Link } from "react-router-dom";
-import { AuthType } from "../@types/types";
-import styles from "./styles/Auth.module.scss";
+import { AuthType } from "../../@types/types";
+import styles from "./Auth.module.scss";
 
 interface AuthProps {
   type: AuthType;
