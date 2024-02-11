@@ -35,7 +35,7 @@ const AuctionItemModal: React.FC<AuctionItemModalProps> = ({
   );
   const [startPrice, setStartPrice] = useState<number>();
   const [open, setOpen] = useState(false);
-  const useAppDispatch = UseAppDispatch();
+  const appDispatch = UseAppDispatch();
 
   const openModal = () => {
     setOpen(true);
@@ -72,7 +72,7 @@ const AuctionItemModal: React.FC<AuctionItemModalProps> = ({
   const onDelete = () => {};
 
   const onEdit = () => {
-    useAppDispatch(
+    appDispatch(
       updateLot({
         id: 0,
         photos: [imagePreview],

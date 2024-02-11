@@ -26,14 +26,14 @@ const Auction = () => {
   const [data, setData] = useState<AuctionFull | null>(null);
   const [isLoading, setLoading] = useState<boolean>(true);
   const [bet, setBet] = useState<number>(0);
-  const useAppDispatch = UseAppDispatch();
+  const appDispatch = UseAppDispatch();
   const { lot } = useSelector(selectAllLots);
   const [currentTabPage, setCurrentTabPage] = useState<number>(0);
 
   useEffect(() => {
     const getAuction = async () => {
       try {
-        useAppDispatch(fetchLot);
+        appDispatch(fetchLot);
         setData(lot);
       } catch (err) {
         console.error(err);

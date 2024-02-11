@@ -15,11 +15,11 @@ const Main: React.FC = () => {
   const [auctions, setAuctions] = useState<Auction[]>([]);
   const { isAuth } = useSelector(selectUser);
   const { lots } = useSelector(selectAllLots);
-  const useAppDispatch = UseAppDispatch();
+  const appDispatch = UseAppDispatch();
 
   useEffect(() => {
     const getAuctions = async () => {
-      useAppDispatch(fetchAllLots);
+      appDispatch(fetchAllLots);
 
       setAuctions(lots);
     };
