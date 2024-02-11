@@ -1,6 +1,8 @@
 import {
   Button,
   Fade,
+  ImageList,
+  ImageListItem,
   Input,
   Modal,
   OutlinedInput,
@@ -28,8 +30,8 @@ const AuctionItemModal: React.FC<AuctionItemModalProps> = ({
   const [description, setDescription] = useState(
     initialData?.description ?? ""
   );
-  const [imagePreview, setImagePreview] = useState<string>(
-    initialData?.photos[0] ?? ""
+  const [imagesPreview, setImagesPreview] = useState<string[]>(
+    initialData?.photos ?? []
   );
   const [startPrice, setStartPrice] = useState<number>();
   const [open, setOpen] = useState(false);
@@ -53,7 +55,9 @@ const AuctionItemModal: React.FC<AuctionItemModalProps> = ({
 
       reader.onload = function () {
         if (reader.result !== null) {
-          setImagePreview(reader.result.toString());
+          const newImages = [...imagesPreview, reader.result.toString()];
+
+          setImagesPreview(newImages);
         }
       };
     }
@@ -63,7 +67,7 @@ const AuctionItemModal: React.FC<AuctionItemModalProps> = ({
     appDispatch(
       createLot({
         id: Number(id!),
-        photos: [imagePreview],
+        photos: imagesPreview,
         name: title,
         description,
         startPrice: startPrice!,
@@ -77,14 +81,14 @@ const AuctionItemModal: React.FC<AuctionItemModalProps> = ({
   const onClean = () => {
     setTitle("");
     setDescription("");
-    setImagePreview("");
+    setImagesPreview([]);
   };
 
   const onEdit = () => {
     appDispatch(
       updateLot({
         id: Number(id!),
-        photos: [imagePreview],
+        photos: imagesPreview,
         name: title,
         description,
       })
@@ -138,26 +142,40 @@ const AuctionItemModal: React.FC<AuctionItemModalProps> = ({
               />
             </>
           )}
-
-          <h2>Попередній перегляд зображення:</h2>
           <div className={styles["modal-image-block"]}>
-            <div className={styles["modal-image"]}>
+            {imagesPreview.length ? (
+              <ImageList
+                sx={{ width: 300, height: 100 }}
+                cols={3}
+                rowHeight={100}
+              >
+                {imagesPreview.map((item) => (
+                  <ImageListItem key={item}>
+                    <img
+                      src={item}
+                      alt={item}
+                      loading="lazy"
+                      className={styles["gallery-image"]}
+                    />
+                  </ImageListItem>
+                ))}
+              </ImageList>
+            ) : (
               <img
-                src={
-                  imagePreview
-                    ? imagePreview
-                    : "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTxddtPSxt3mS3QjGibU-bVEPkoBgh_852nNRuU2_CuZ2sEEJJD9VEcGBZ9OGmlv_LmGdg&usqp=CAU"
-                }
+                src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTxddtPSxt3mS3QjGibU-bVEPkoBgh_852nNRuU2_CuZ2sEEJJD9VEcGBZ9OGmlv_LmGdg&usqp=CAU"
                 alt="Попередній перегляд"
                 style={{ maxWidth: "100px", maxHeight: "100px" }}
               />
+            )}
+            <div className={styles["modal-input-image"]}>
+              <Input
+                inputProps={{
+                  accept: "image/*",
+                }}
+                type="file"
+                onChange={handleImageChange}
+              />
             </div>
-
-            <Input
-              type="file"
-              onChange={handleImageChange}
-              className={styles["modal-input-image"]}
-            />
           </div>
 
           <div className={styles["modal-actions"]}>

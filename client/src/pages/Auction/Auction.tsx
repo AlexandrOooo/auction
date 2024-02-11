@@ -8,6 +8,8 @@ import {
   FormControl,
   Tabs,
   Tab,
+  ImageList,
+  ImageListItem,
 } from "@mui/material";
 import { useSelector } from "react-redux";
 
@@ -46,8 +48,26 @@ const Auction = () => {
       <Header />
       <main>
         <picture>
-          <img src={lot?.photos[0]} />
+          <img
+            src={lot.photos[0]}
+            alt=""
+            className={styles["auction-main-image"]}
+          />
+
+          <ImageList
+            sx={{ width: 500, height: 450 }}
+            variant="quilted"
+            cols={4}
+            rowHeight={121}
+          >
+            {lot.photos.slice(1).map((item) => (
+              <ImageListItem key={item} rows={1} cols={1}>
+                <img src={item} alt={item} loading="lazy" />
+              </ImageListItem>
+            ))}
+          </ImageList>
         </picture>
+
         <div className={styles.info}>
           <h2>{lot?.name}</h2>
           <p>last bet: ${lot?.lastBet}</p>

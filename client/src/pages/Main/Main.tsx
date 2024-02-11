@@ -1,8 +1,9 @@
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
+import { Button } from "@mui/material";
 import AuctionItem from "../../components/AuctionItem/AuctionItem";
 import styles from "./Main.module.scss";
-import { Auction, AuctionModalType } from "../../@types/types";
+import { AuctionModalType } from "../../@types/types";
 import Header from "../../components/Header/Header";
 import { useSelector } from "react-redux";
 import { selectUser } from "../../redux/slices/user/selectors";
@@ -12,12 +13,18 @@ import { fetchAllLots } from "../../redux/slices/lots/requests";
 import { selectAllLots } from "../../redux/slices/lots/selector";
 
 const Main: React.FC = () => {
-  const { isAuth } = useSelector(selectUser);
-  const { lots } = useSelector(selectAllLots);
   const appDispatch = UseAppDispatch();
+  const { isAuth } = useSelector(selectUser);
+  const { lots, hasNext } = useSelector(selectAllLots);
+  const [currentSheet, setCurrentSheet] = useState(1);
 
   useEffect(() => {
-    appDispatch(fetchAllLots());
+    appDispatch(
+      fetchAllLots({
+        limit: 10,
+        skip: currentSheet - 1,
+      })
+    );
   }, []);
 
   return (
@@ -43,6 +50,22 @@ const Main: React.FC = () => {
             </li>
           ))}
         </ul>
+        <div className={styles.pagination}>
+          {currentSheet && (
+            <Button
+              variant="contained"
+              onClick={() => setCurrentSheet((prev) => prev - 1)}
+              disabled={currentSheet === 1}
+            >{`< Previous Page`}</Button>
+          )}
+          {hasNext && (
+            <Button
+              variant="contained"
+              onClick={() => setCurrentSheet((prev) => prev + 1)}
+              disabled={!hasNext}
+            >{`Next Page >`}</Button>
+          )}
+        </div>
       </main>
     </div>
   );
