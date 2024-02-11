@@ -9,7 +9,8 @@ public class AuctionEntity : BaseEntity
     public string Description { get; set; }
     public decimal StartPrice { get; set; }
     public bool IsArchived { get; set; }
-    public DateTime ArchivedAt { get; set; }
-    public List<PhotoEntity> Photos { get; set; }
-    public List<UserAuctionEntity> Users { get; set; }
+    public DateTime? ArchivedAt { get; set; }
+    
+    public virtual List<PhotoEntity> Photos { get; set; }
+    public virtual List<UserAuctionEntity> Bets { get; set; }
 }

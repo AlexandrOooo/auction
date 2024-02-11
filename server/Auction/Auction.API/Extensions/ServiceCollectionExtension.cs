@@ -10,7 +10,12 @@ public static class ServiceCollectionExtension
     public static void AddServicesDependencies(this IServiceCollection services)
     {
         services
-                .AddSingleton<IAuctionsRepository, AuctionsRepository>()
-                .AddSingleton<IAuctionService, AuctionService>();
+                .AddScoped<IAuctionsRepository, AuctionsRepository>()
+                .AddScoped<IAuctionService, AuctionService>()
+                .AddScoped<IBetsRepository, BetsRepository>()
+                .AddScoped<IBetService, BetService>()
+                .AddScoped<IPhotosRepository, PhotosRepository>()
+                .AddScoped<IUserRepository, UsersRepository>()
+                .AddScoped<IUserService, UserService>();
     }
 }
