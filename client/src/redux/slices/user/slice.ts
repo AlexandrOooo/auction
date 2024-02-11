@@ -21,7 +21,6 @@ export const userSlice = createSlice({
   },
   extraReducers(builder) {
     builder.addCase(signUp.fulfilled, (state, action) => {
-      console.log(action.payload);
       state.username = action.payload.name;
       window.localStorage.setItem('token', action.payload.token)
       state.isAuth = true;
