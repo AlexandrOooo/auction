@@ -5,6 +5,7 @@ import { Lots } from "./types";
 const initialState: Lots = {
   lots: [],
   lot: null,
+  hasNext: false,
 };
 
 export const lotsSlice = createSlice({
@@ -13,7 +14,8 @@ export const lotsSlice = createSlice({
   reducers: {},
   extraReducers: (builder) => {
     builder.addCase(fetchAllLots.fulfilled, (state, action) => {
-      state.lots = action.payload;
+      state.lots = action.payload.data;
+      state.hasNext = action.payload.meta.hasNext;
     });
 
     builder.addCase(fetchLot.fulfilled, (state, action) => {
