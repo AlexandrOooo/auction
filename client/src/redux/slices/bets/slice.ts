@@ -1,5 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { createBet, fetchBetHistory } from "./requests";
+import { makeNewBet, fetchBetHistory } from "./requests";
 import { Bets } from "./types";
 
 const initialState: Bets = {
@@ -17,7 +17,7 @@ export const betsSlice = createSlice({
       state.hasNext = action.payload.meta.hasNext;
     });
 
-    builder.addCase(createBet.fulfilled, (state, action) => {
+    builder.addCase(makeNewBet.fulfilled, (state, action) => {
       state.bets = [...state.bets, action.payload];
     });
   },

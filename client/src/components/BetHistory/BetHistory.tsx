@@ -174,7 +174,6 @@ const BetHistory = () => {
       <ul className={styles.betList}>
         {betList.slice(0, amountOfShowedBets).map((item) => (
           <li key={item.bet} className={styles.bet}>
-            <p className={styles.date}>{(new Date(item.time)).toLocaleDateString()} |</p>
             <b className={styles.username}>{item.username}: </b>
             {<p>${item.bet}</p>}
           </li>

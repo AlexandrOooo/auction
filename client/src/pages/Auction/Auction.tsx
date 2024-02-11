@@ -13,7 +13,7 @@ import {
 } from "@mui/material";
 import { useSelector } from "react-redux";
 
-import { AuctionFull, AuctionModalType } from "../../@types/types";
+import { AuctionModalType } from "../../@types/types";
 import Header from "../../components/Header/Header";
 import styles from "./Auction.module.scss";
 import AuctionItemModal from "../../components/AuctionItemModal/AuctionItemModal";
@@ -22,10 +22,12 @@ import { UseAppDispatch } from "../../redux/store";
 import { selectAllLots } from "../../redux/slices/lots/selector";
 import BetHistory from "../../components/BetHistory/BetHistory";
 import Chat from "../../components/Chat/Chat";
+import { makeNewBet } from "../../redux/slices/bets/requests";
 
 const Auction = () => {
-  const [bet, setBet] = useState<number>(0);
   const appDispatch = UseAppDispatch();
+  const { id } = useParams() as { id: string};
+  const [bet, setBet] = useState<number>(0);
   const { lot } = useSelector(selectAllLots);
   const [currentTabPage, setCurrentTabPage] = useState<number>(0);
 
@@ -38,6 +40,10 @@ const Auction = () => {
   ) => {
     setBet(Number(event.target.value));
   };
+
+  const onMakeBet = () => {
+    appDispatch(makeNewBet({betPrice: bet, auctionId: id}))
+  }
 
   if (!lot) {
     return <>Loading</>;
@@ -71,7 +77,7 @@ const Auction = () => {
         <div className={styles.info}>
           <h2>{lot?.name}</h2>
           <p>last bet: ${lot?.lastBet}</p>
-          {true ? (
+          {lot.isOwner ? (
             <AuctionItemModal type={AuctionModalType.Edit} initialData={lot} />
           ) : (
             <div className={styles.betOutline}>
@@ -95,6 +101,7 @@ const Auction = () => {
                   variant="contained"
                   color="success"
                   disabled={Number(lot?.lastBet)! >= bet}
+                  onClick={onMakeBet}
                 >
                   bet
                 </Button>

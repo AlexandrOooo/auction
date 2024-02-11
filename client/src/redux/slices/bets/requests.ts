@@ -144,17 +144,16 @@ export const fetchBetHistory = createAsyncThunk(
   }
 );
 
-export const createBet = createAsyncThunk(
-  "lots/createLot",
-  async (newData: { id: number }) => {
-    const response = {
-      data: {
-        id: "0",
-        user: "@user666",
-        betPrice: 100,
+export const makeNewBet = createAsyncThunk(
+  "bets/makeNewBet",
+  async ({ auctionId, betPrice } : { auctionId: string; betPrice: number }) => {
+    const { data } = await myAxios.post("/bets", 
+      {
+        auctionId,
+        betPrice,
       },
-    };
+    );
 
-    return response.data;
+    return data;
   }
 );
