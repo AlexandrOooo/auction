@@ -1,8 +1,8 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
 import myAxios from "../../../axios";
 
-export const fetchBetHistory = createAsyncThunk(
-  "lots/fetchAllLots",
+export const getBetHistory = createAsyncThunk(
+  "bets/getAllLots",
   async ({
     limit,
     skip,
@@ -12,133 +12,10 @@ export const fetchBetHistory = createAsyncThunk(
     skip: number;
     auctionId: string;
   }) => {
-    const response = {
-      data: [
-        {
-          user: "@bigboy0001",
-          betPrice: 120,
-        },
-        {
-          user: "@peppa_pig",
-          betPrice: 80,
-        },
-        {
-          user: "@arnold_shwarznegger",
-          betPrice: 45,
-        },
-        {
-          user: "@bella55",
-          betPrice: 35,
-        },
-        {
-          user: "@therichestmenhere",
-          betPrice: 20,
-        },
-        {
-          user: "@2349173741375",
-          betPrice: 10,
-        },
-        {
-          user: "@bigboy0001",
-          betPrice: 120,
-        },
-        {
-          user: "@peppa_pig",
-          betPrice: 80,
-        },
-        {
-          user: "@arnold_shwarznegger",
-          betPrice: 45,
-        },
-        {
-          user: "@bella55",
-          betPrice: 35,
-        },
-        {
-          user: "@therichestmenhere",
-          betPrice: 20,
-        },
-        {
-          user: "@2349173741375",
-          betPrice: 10,
-        },
-        {
-          user: "@bigboy0001",
-          betPrice: 120,
-        },
-        {
-          user: "@peppa_pig",
-          betPrice: 80,
-        },
-        {
-          user: "@arnold_shwarznegger",
-          betPrice: 45,
-        },
-        {
-          user: "@bella55",
-          betPrice: 35,
-        },
-        {
-          user: "@therichestmenhere",
-          betPrice: 20,
-        },
-        {
-          user: "@2349173741375",
-          betPrice: 10,
-        },
-        {
-          user: "@bigboy0001",
-          betPrice: 120,
-        },
-        {
-          user: "@peppa_pig",
-          betPrice: 80,
-        },
-        {
-          user: "@arnold_shwarznegger",
-          betPrice: 45,
-        },
-        {
-          user: "@bella55",
-          betPrice: 35,
-        },
-        {
-          user: "@therichestmenhere",
-          betPrice: 20,
-        },
-        {
-          user: "@2349173741375",
-          betPrice: 10,
-        },
-        {
-          user: "@bigboy0001",
-          betPrice: 120,
-        },
-        {
-          user: "@arnold_shwarznegger",
-          betPrice: 45,
-        },
-        {
-          user: "@bella55",
-          betPrice: 35,
-        },
-        {
-          user: "@therichestmenhere",
-          betPrice: 20,
-        },
-        {
-          user: "@2349173741375",
-          betPrice: 10,
-        },
-      ],
-      meta: {
-        hasNext: true,
-      },
-    };
 
-    // const response = await myAxios.get("/bets", {
-    //   params: { limit, skip, auctionId },
-    // });
+    const response = await myAxios.get("/bets", {
+      params: { limit, skip, auctionId },
+    }) as { data: any, meta: any};
 
     return response;
   }
@@ -152,7 +29,7 @@ export const makeNewBet = createAsyncThunk(
         auctionId,
         betPrice,
       },
-    );
+    ); 
 
     return data;
   }

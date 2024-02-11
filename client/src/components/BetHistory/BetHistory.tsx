@@ -2,161 +2,27 @@ import { useState, useEffect } from "react";
 import { Button } from "@mui/material";
 
 import styles from "./BetHistory.module.scss";
-import { BetInHistory } from "../../@types/types";
+import { UseAppDispatch } from "../../redux/store";
+import { useParams } from "react-router-dom";
+import { getBetHistory } from "../../redux/slices/bets/requests";
+import { useSelector } from "react-redux";
+import { selectAllBets } from "../../redux/slices/bets/selector";
 
 const BetHistory = () => {
+  const dispatch = UseAppDispatch();
+  const { id } = useParams() as { id: string };
   const [isLoading, setLoading] = useState<boolean>(true);
-  const [betList, setBetList] = useState<BetInHistory[]>([]);
+  const { bets } = useSelector(selectAllBets);
   const [amountOfShowedBets, setAmountOfShowedBets] = useState(10);
 
   useEffect(() => {
-    setBetList([
-      {
-        username: "@bigboy0001",
-        bet: 120,
-        time: Date.now() - 5 * 60 * 1000,
-      },
-      {
-        username: "@peppa_pig",
-        bet: 80,
-        time: Date.now() - 15 * 60 * 1000,
-      },
-      {
-        username: "@arnold_shwarznegger",
-        bet: 45,
-        time: Date.now() - 16 * 60 * 1000,
-      },
-      {
-        username: "@bella55",
-        bet: 35,
-        time: Date.now() - 21 * 60 * 1000,
-      },
-      {
-        username: "@therichestmenhere",
-        bet: 20,
-        time: Date.now() - 28 * 60 * 1000,
-      },
-      {
-        username: "@2349173741375",
-        bet: 10,
-        time: Date.now() - 35 * 60 * 1000,
-      },
-      {
-        username: "@bigboy0001",
-        bet: 120,
-        time: Date.now() - 5 * 60 * 1000,
-      },
-      {
-        username: "@peppa_pig",
-        bet: 80,
-        time: Date.now() - 15 * 60 * 1000,
-      },
-      {
-        username: "@arnold_shwarznegger",
-        bet: 45,
-        time: Date.now() - 16 * 60 * 1000,
-      },
-      {
-        username: "@bella55",
-        bet: 35,
-        time: Date.now() - 21 * 60 * 1000,
-      },
-      {
-        username: "@therichestmenhere",
-        bet: 20,
-        time: Date.now() - 28 * 60 * 1000,
-      },
-      {
-        username: "@2349173741375",
-        bet: 10,
-        time: Date.now() - 35 * 60 * 1000,
-      },
-      {
-        username: "@bigboy0001",
-        bet: 120,
-        time: Date.now() - 5 * 60 * 1000,
-      },
-      {
-        username: "@peppa_pig",
-        bet: 80,
-        time: Date.now() - 15 * 60 * 1000,
-      },
-      {
-        username: "@arnold_shwarznegger",
-        bet: 45,
-        time: Date.now() - 16 * 60 * 1000,
-      },
-      {
-        username: "@bella55",
-        bet: 35,
-        time: Date.now() - 21 * 60 * 1000,
-      },
-      {
-        username: "@therichestmenhere",
-        bet: 20,
-        time: Date.now() - 28 * 60 * 1000,
-      },
-      {
-        username: "@2349173741375",
-        bet: 10,
-        time: Date.now() - 35 * 60 * 1000,
-      },
-      {
-        username: "@bigboy0001",
-        bet: 120,
-        time: Date.now() - 5 * 60 * 1000,
-      },
-      {
-        username: "@peppa_pig",
-        bet: 80,
-        time: Date.now() - 15 * 60 * 1000,
-      },
-      {
-        username: "@arnold_shwarznegger",
-        bet: 45,
-        time: Date.now() - 16 * 60 * 1000,
-      },
-      {
-        username: "@bella55",
-        bet: 35,
-        time: Date.now() - 21 * 60 * 1000,
-      },
-      {
-        username: "@therichestmenhere",
-        bet: 20,
-        time: Date.now() - 28 * 60 * 1000,
-      },
-      {
-        username: "@2349173741375",
-        bet: 10,
-        time: Date.now() - 35 * 60 * 1000,
-      },
-      {
-        username: "@bigboy0001",
-        bet: 120,
-        time: Date.now() - 5 * 60 * 1000,
-      },
-      {
-        username: "@arnold_shwarznegger",
-        bet: 45,
-        time: Date.now() - 16 * 60 * 1000,
-      },
-      {
-        username: "@bella55",
-        bet: 35,
-        time: Date.now() - 21 * 60 * 1000,
-      },
-      {
-        username: "@therichestmenhere",
-        bet: 20,
-        time: Date.now() - 28 * 60 * 1000,
-      },
-      {
-        username: "@2349173741375",
-        bet: 10,
-        time: Date.now() - 35 * 60 * 1000,
-      },
-    ]);
+    dispatch(
+      getBetHistory({
+        limit: 10,
+        skip: Math.floor(amountOfShowedBets / 10) - 1,
+        auctionId: id,
+      })
+    );
 
     setLoading(false);
   }, []);
@@ -165,23 +31,23 @@ const BetHistory = () => {
     setAmountOfShowedBets((prev) => prev + 10);
   };
 
-  if(isLoading){
-    return <p>loading...</p>
+  if (isLoading) {
+    return <p>loading...</p>;
   }
 
   return (
     <div className={styles.root}>
       <ul className={styles.betList}>
-        {betList.slice(0, amountOfShowedBets).map((item) => (
-          <li key={item.bet} className={styles.bet}>
-            <b className={styles.username}>{item.username}: </b>
-            {<p>${item.bet}</p>}
+        {bets.slice(0, amountOfShowedBets).map((item) => (
+          <li key={item.betPrice} className={styles.bet}>
+            <b className={styles.username}>{item.user}: </b>
+            {<p>${item.betPrice}</p>}
           </li>
         ))}
       </ul>
-      {betList.length - amountOfShowedBets > 0 ? (
+      {bets.length - amountOfShowedBets > 0 ? (
         <Button onClick={onShowMore}>
-          Show more ({betList.length - amountOfShowedBets}) ↓
+          Show more ({bets.length - amountOfShowedBets}) ↓
         </Button>
       ) : (
         <></>
