@@ -2,6 +2,8 @@ import { Button, TextField } from "@mui/material";
 import { useState } from "react";
 import { Link } from "react-router-dom";
 import { AuthType } from "../../@types/types";
+import { signIn, signUp } from "../../redux/slices/user/requests";
+import { UseAppDispatch } from "../../redux/store";
 import styles from "./Auth.module.scss";
 
 interface AuthProps {
@@ -9,15 +11,19 @@ interface AuthProps {
 }
 
 const Auth: React.FC<AuthProps> = ({ type }) => {
-  const [username, setUsername] = useState("");
-  const [password, setPassword] = useState("");
+  const dispatch = UseAppDispatch();
+  const [username, setUsername] = useState<string>("");
+  const [password, setPassword] = useState<string>("");
 
-  const onSignIn = (data: any) => {
-    console.log(data);
+  const onSignIn = () => {
+    dispatch(signIn({ username, password }));
   };
 
-  const onSignUp = (data: any) => {
-    console.log(data);
+  const onSignUp = (event: any) => {
+    event.preventDefault();
+    
+    console.log("dispatch...");
+    dispatch(signUp({ username, password }));
   };
 
   if (type === AuthType.signIn) {
@@ -26,7 +32,7 @@ const Auth: React.FC<AuthProps> = ({ type }) => {
         <h1>Sign In</h1>
         <form onSubmit={onSignIn}>
           <TextField
-            id="outlined-basic"
+            // id="outlined-basic"
             label="@username"
             variant="outlined"
             className={styles.textField}
@@ -34,7 +40,7 @@ const Auth: React.FC<AuthProps> = ({ type }) => {
             onChange={(e) => setUsername(e.target.value)}
           />
           <TextField
-            id="outlined-basic"
+            // id="outlined-basic"
             type="password"
             label="password"
             variant="outlined"
@@ -58,7 +64,7 @@ const Auth: React.FC<AuthProps> = ({ type }) => {
       <h1>Sign Up</h1>
       <form onSubmit={onSignUp}>
         <TextField
-          id="outlined-basic"
+          // id="outlined-basic"
           label="@username"
           variant="outlined"
           className={styles.textField}
@@ -66,7 +72,7 @@ const Auth: React.FC<AuthProps> = ({ type }) => {
           onChange={(e) => setUsername(e.target.value)}
         />
         <TextField
-          id="outlined-basic"
+          // id="outlined-basic"
           type="password"
           label="password"
           variant="outlined"
@@ -74,8 +80,8 @@ const Auth: React.FC<AuthProps> = ({ type }) => {
           value={password}
           onChange={(e) => setPassword(e.target.value)}
         />
-        <Button variant="contained" disabled={!username || !password}>
-          <Link to="/">Submit</Link>
+        <Button variant="contained" disabled={!username || !password} type="submit">
+          Submit
         </Button>
       </form>
       <p>

@@ -1,4 +1,5 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
+import { signIn, signUp } from "./requests";
 import { User } from "./types";
 
 const initialState: User = {
@@ -17,6 +18,17 @@ export const userSlice = createSlice({
     clearUser(state) {
       state = initialState;
     },
+  },
+  extraReducers(builder) {
+    builder.addCase(signUp.fulfilled, (state, action) => {
+      state.username = action.payload.login;
+      window.localStorage.setItem('token', action.payload.token)
+      state.isAuth = true;
+    });
+
+    builder.addCase(signIn.fulfilled, (state, action) => {
+      state.username = action.payload.login;
+    });
   },
 });
 
