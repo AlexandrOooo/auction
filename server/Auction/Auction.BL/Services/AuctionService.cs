@@ -26,8 +26,20 @@ public class AuctionService : IAuctionService
     public async Task<(bool hasNext, List<AuctionModel> data)> GetAsync(GetManyAuctionsRequest request, CancellationToken cancellationToken = default)
     {
         var entities = await _auctionRepository.GetAsync(request.Limit, request.Skip, request.IsArchived, cancellationToken);
+        List<AuctionModel> models = new();
+        foreach (var entity in entities.data)
+        {
+            var lastBetEntity = await _betsRepository.GetLastOneAsync(entity.Id, cancellationToken: cancellationToken);
+        
+            var model = _mapper.Map<AuctionEntity, AuctionDetailModel>(entity);
+            model.LastBet = _mapper.Map<UserAuctionEntity, BetModel>(lastBetEntity);
+        
+            var photos = await _photosRepository.GetAsync(entity.Id, cancellationToken);
+            model.Photos = photos.Select(x => System.Text.Encoding.Default.GetString(x.Photo)).ToList();
+            models.Add(model);
+        }
 
-        return (entities.hasNext, _mapper.Map<List<AuctionEntity>, List<AuctionModel>>(entities.data));
+        return (entities.hasNext, models);
     }
 
     public async Task<AuctionDetailModel> GetOneAsync(Guid id, CancellationToken cancellationToken = default)
