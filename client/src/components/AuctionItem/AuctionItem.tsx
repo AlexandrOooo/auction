@@ -1,18 +1,21 @@
+import { LastBet } from "../../@types/types";
 import styles from "./AuctionItem.module.scss";
 
 type AuctionItemType = {
   imageUrl: string;
   title: string;
-  lastBet: number;
-  expiredTime: number;
+  lastBet: LastBet | null;
+  endAt: string;
 };
 
 const AuctionItem: React.FC<AuctionItemType> = ({
   imageUrl,
   title,
   lastBet,
-  expiredTime,
+  endAt,
 }) => {
+  const expiredTime = new Date(endAt);
+
   return (
     <div className={styles.root}>
       <picture>
@@ -22,11 +25,11 @@ const AuctionItem: React.FC<AuctionItemType> = ({
         <h2>{title}</h2>
         <div className={styles.details}>
           <div>
-            <p>last bet: ${lastBet}</p>
+            <p>last bet: ${lastBet && lastBet.betPrice}</p>
           </div>
           <div>
             <p>ends in:</p>
-            <h3>{expiredTime - Date.now() + "ms"}</h3>
+            <h3>{expiredTime.toDateString()}</h3>
           </div>
         </div>
       </div>

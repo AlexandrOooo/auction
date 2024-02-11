@@ -26,13 +26,13 @@ import { makeNewBet } from "../../redux/slices/bets/requests";
 
 const Auction = () => {
   const appDispatch = UseAppDispatch();
-  const { id } = useParams() as { id: string};
+  const { id } = useParams() as { id: string };
   const [bet, setBet] = useState<number>(0);
   const { lot } = useSelector(selectAllLots);
   const [currentTabPage, setCurrentTabPage] = useState<number>(0);
 
   useEffect(() => {
-    appDispatch(fetchLot());
+    appDispatch(fetchLot({ id: id! }));
   }, []);
 
   const onChangeBet = (
@@ -42,8 +42,8 @@ const Auction = () => {
   };
 
   const onMakeBet = () => {
-    appDispatch(makeNewBet({betPrice: bet, auctionId: id}))
-  }
+    appDispatch(makeNewBet({ betPrice: bet, auctionId: id }));
+  };
 
   if (!lot) {
     return <>Loading</>;

@@ -15,7 +15,7 @@ export const lotsSlice = createSlice({
   extraReducers: (builder) => {
     builder.addCase(fetchAllLots.fulfilled, (state, action) => {
       state.lots = action.payload.data;
-      state.hasNext = action.payload.meta.hasNext;
+      state.hasNext = action.payload.meta?.hasNext;
     });
 
     builder.addCase(fetchLot.fulfilled, (state, action) => {

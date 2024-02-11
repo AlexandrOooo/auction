@@ -1,9 +1,18 @@
 export type Auction = {
   id: number;
   name: string;
-  lastBet: number;
-  expiredAt: number;
+  lastBet: LastBet | null;
   photos: string[];
+  endAt: string;
+  isArchived: false;
+  isOwner: false;
+  startPrice: number;
+};
+
+export type LastBet = {
+  id: string;
+  user: string;
+  betPrice: number;
 };
 
 export type AuctionFull = {
@@ -16,7 +25,7 @@ export type AuctionFull = {
   isOwner: boolean;
   photos: string[];
   description: string;
-  expiredAt: number;
+  endAt: string;
 };
 
 export enum AuctionModalType {
@@ -29,17 +38,16 @@ export enum AuthType {
   signUp = "sign-up",
 }
 
-export interface Bet{
-  user: string,
-  betPrice: number,
+export interface Bet {
+  user: string;
+  betPrice: number;
 }
 
 export type BetInHistory = {
-  username: string,
-  bet: number,
-  time: number,
-}
-
+  username: string;
+  bet: number;
+  time: number;
+};
 
 export type AuthFormData = {
   username: string;
