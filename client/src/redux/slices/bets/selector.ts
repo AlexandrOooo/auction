@@ -1,3 +1,3 @@
 import { RootState } from "../../store";
 
-export const selectAllLots = (state: RootState) => state.lots;
+export const selectAllBets = (state: RootState) => state.bets;
