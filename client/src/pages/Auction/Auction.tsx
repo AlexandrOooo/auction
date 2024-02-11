@@ -37,6 +37,10 @@ const Auction = () => {
     setBet(Number(event.target.value));
   };
 
+  if (!lot) {
+    return <>Loading</>;
+  }
+
   return (
     <div className={styles.root}>
       <Header />
@@ -48,7 +52,7 @@ const Auction = () => {
           <h2>{lot?.name}</h2>
           <p>last bet: ${lot?.lastBet}</p>
           {true ? (
-            <AuctionItemModal type={AuctionModalType.Edit} />
+            <AuctionItemModal type={AuctionModalType.Edit} initialData={lot} />
           ) : (
             <div className={styles.betOutline}>
               <b>make your bet:</b>

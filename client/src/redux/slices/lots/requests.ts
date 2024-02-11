@@ -84,3 +84,31 @@ export const updateLot = createAsyncThunk(
     return response.data;
   }
 );
+
+export const createLot = createAsyncThunk(
+  "lots/createLot",
+  async (newData: {
+    id: number;
+    name: string;
+    description: string;
+    photos: string[];
+    startPrice: number;
+  }) => {
+    const response = {
+      data: {
+        id: newData.id,
+        name: newData.name,
+        startPrice: 0,
+        lastBet: newData.startPrice,
+        isArchived: false,
+        archivedAt: false,
+        expiredAt: 32,
+        isOwner: false,
+        photos: newData.photos,
+        description: newData.description,
+      },
+    };
+
+    return response.data;
+  }
+);
