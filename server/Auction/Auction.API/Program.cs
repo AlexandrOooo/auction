@@ -11,6 +11,7 @@ builder.Services.AddAutoMapper(typeof(MapperProfile));
 builder.Services.AddDbContext<ApplicationContext>(options =>
         options.UseNpgsql(builder.Configuration.GetConnectionString("Varenyky")));
 
+builder.Services.AddCors();
 builder.Services.AddMvc(o =>
                        o.SuppressAsyncSuffixInActionNames = false)
        .AddDataAnnotationsLocalization();
@@ -32,7 +33,13 @@ builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
 builder.Services.AddControllers();
 
 var app = builder.Build();
+
 app.UseRouting();
+app.UseCors(x => x
+                 .AllowAnyMethod()
+                 .AllowAnyHeader()
+                 .SetIsOriginAllowed(origin => true) // allow any origin
+                 .AllowCredentials()); 
 app.UseAuthentication();
 app.UseAuthorization();
 app.UseEndpoints(endpoints => { endpoints.MapControllers(); });
