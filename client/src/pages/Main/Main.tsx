@@ -12,19 +12,12 @@ import { fetchAllLots } from "../../redux/slices/lots/requests";
 import { selectAllLots } from "../../redux/slices/lots/selector";
 
 const Main: React.FC = () => {
-  const [auctions, setAuctions] = useState<Auction[]>([]);
   const { isAuth } = useSelector(selectUser);
   const { lots } = useSelector(selectAllLots);
   const appDispatch = UseAppDispatch();
 
   useEffect(() => {
-    const getAuctions = async () => {
-      appDispatch(fetchAllLots);
-
-      setAuctions(lots);
-    };
-
-    getAuctions();
+    appDispatch(fetchAllLots());
   }, []);
 
   return (
@@ -37,7 +30,7 @@ const Main: React.FC = () => {
           </div>
         )}
         <ul className={styles["auctions"]}>
-          {auctions.map((item) => (
+          {lots.map((item) => (
             <li key={item.id}>
               <Link to={"/auction/" + item.id}>
                 <AuctionItem

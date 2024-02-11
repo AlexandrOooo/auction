@@ -22,26 +22,13 @@ import BetHistory from "../../components/BetHistory/BetHistory";
 import Chat from "../../components/Chat/Chat";
 
 const Auction = () => {
-  const { id } = useParams();
-  const [data, setData] = useState<AuctionFull | null>(null);
-  const [isLoading, setLoading] = useState<boolean>(true);
   const [bet, setBet] = useState<number>(0);
   const appDispatch = UseAppDispatch();
   const { lot } = useSelector(selectAllLots);
   const [currentTabPage, setCurrentTabPage] = useState<number>(0);
 
   useEffect(() => {
-    const getAuction = async () => {
-      try {
-        appDispatch(fetchLot);
-        setData(lot);
-      } catch (err) {
-        console.error(err);
-      }
-    };
-
-    getAuction();
-    setLoading(false);
+    appDispatch(fetchLot());
   }, []);
 
   const onChangeBet = (
@@ -50,20 +37,16 @@ const Auction = () => {
     setBet(Number(event.target.value));
   };
 
-  if (isLoading) {
-    return <>loading...</>;
-  }
-
   return (
     <div className={styles.root}>
       <Header />
       <main>
         <picture>
-          <img src={data?.photos[0]} />
+          <img src={lot?.photos[0]} />
         </picture>
         <div className={styles.info}>
-          <h2>{data?.name}</h2>
-          <p>last bet: ${data?.lastBet}</p>
+          <h2>{lot?.name}</h2>
+          <p>last bet: ${lot?.lastBet}</p>
           {true ? (
             <AuctionItemModal type={AuctionModalType.Edit} />
           ) : (
@@ -87,7 +70,7 @@ const Auction = () => {
                 <Button
                   variant="contained"
                   color="success"
-                  disabled={+data?.lastBet! >= bet}
+                  disabled={Number(lot?.lastBet)! >= bet}
                 >
                   bet
                 </Button>
@@ -110,7 +93,7 @@ const Auction = () => {
           ) : currentTabPage === 1 ? (
             <Chat />
           ) : currentTabPage === 2 ? (
-            <p>{data?.description}</p>
+            <p>{lot?.description}</p>
           ) : (
             <></>
           )}
