@@ -15,9 +15,9 @@ export const getBetHistory = createAsyncThunk(
 
     const response = await myAxios.get("/bets", {
       params: { limit, skip, auctionId },
-    }) as { data: any, meta: any};
+    })
 
-    return response;
+    return response.data;
   }
 );
 
