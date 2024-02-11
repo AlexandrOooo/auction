@@ -1,6 +1,8 @@
+using System.Security.Claims;
 using Auction.BL.Services.Abstract;
 using Auction.Common.Contracts.Requests;
 using Auction.Common.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Auction.API.Controllers;
@@ -29,23 +31,32 @@ public class AuctionsController: Controller
         return result.data.Any() ? Ok(new {result.data, meta}) : NoContent();
     }
     
-    [HttpGet("/{id:guid}")]
+    [HttpGet("{id:guid}")]
     public async Task<IActionResult> GetOneAsync([FromRoute] Guid id, CancellationToken cancellationToken = default)
     {
         var result = await _auctionService.GetOneAsync(id, cancellationToken);
 
         return Ok(result);
     }
-    
+
     [HttpPost]
-    public async Task<IActionResult> CreateAsync([FromBody] AuctionDetailModel model, CancellationToken cancellationToken = default) 
-        => Ok(await _auctionService.CreateAsync(model, cancellationToken));
+    [Authorize]
+    public async Task<IActionResult> CreateAsync([FromBody] AuctionDetailModel model, CancellationToken cancellationToken = default)
+    {
+        model.OwnerId = Guid.Parse(User.FindFirst(ClaimTypes.Sid)?.Value);
+        return Ok(await _auctionService.CreateAsync(model, cancellationToken));
+    }
     
     [HttpPut]
+    [Authorize]
     public async Task<IActionResult> UpdateAsync([FromBody] AuctionDetailModel model, CancellationToken cancellationToken = default)
-        => Ok(await _auctionService.UpdateAsync(model, cancellationToken));
+    {
+        model.OwnerId = Guid.Parse(User.FindFirst(ClaimTypes.Sid)?.Value);
+        return Ok(await _auctionService.UpdateAsync(model, cancellationToken));
+    }
     
-    [HttpPatch("/archive/{id:guid}")]
+    [HttpPatch("archive/{id:guid}")]
+    [Authorize]
     public async Task<IActionResult> ArchiveAsync([FromRoute] Guid id, CancellationToken cancellationToken = default)
         => Ok(await _auctionService.ArchiveAsync(id, cancellationToken));
 }

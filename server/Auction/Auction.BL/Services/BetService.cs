@@ -38,7 +38,7 @@ public class BetService : IBetService
         var entity = await _betsRepository.CreateAsync(new UserAuctionEntity
         {
             AuctionId = command.AuctionId,
-            UserId = Guid.Empty,
+            UserId = command.UserId,
             BetPrice = command.BetPrice,
             Relation = UserAuctionRelation.Buyer
         }, cancellationToken);

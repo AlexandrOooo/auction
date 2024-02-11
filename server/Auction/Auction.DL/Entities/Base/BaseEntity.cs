@@ -10,7 +10,7 @@ public abstract class BaseEntity
     public Guid Id { get; set; }
 
     [Column(TypeName = "timestamp")]
-    public DateTime CreatedAt { get; set; }
+    public DateTime CreatedAt { get; set; } = DateTime.Now;
 
     [Column(TypeName = "timestamp")]
     public DateTime? UpdatedAt { get; set; }

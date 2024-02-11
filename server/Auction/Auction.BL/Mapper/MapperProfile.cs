@@ -18,6 +18,8 @@ public class MapperProfile : Profile
                 .ForMember(x => x.Photos,
                     opt => opt.Ignore());
         
-        CreateMap<UserAuctionEntity, BetModel>().ReverseMap();
+        CreateMap<UserAuctionEntity, BetModel>()
+                .ForMember(x => x.User, 
+                    opt => opt.MapFrom(x => x.User.Name)).ReverseMap();
     }
 }

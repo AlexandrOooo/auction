@@ -39,7 +39,7 @@ public class AuctionService : IAuctionService
         model.LastBet = _mapper.Map<UserAuctionEntity, BetModel>(lastBetEntity);
         
         var photos = await _photosRepository.GetAsync(id, cancellationToken);
-        //model.Photos = photos.Select(x => x.Photo).ToList();
+        model.Photos = photos.Select(x => System.Text.Encoding.Default.GetString(x.Photo)).ToList();
 
         return model;
     }
@@ -51,15 +51,15 @@ public class AuctionService : IAuctionService
         await _betsRepository.CreateAsync(new UserAuctionEntity
         {
             AuctionId = entity.Id,
-            UserId = Guid.NewGuid(),
+            UserId = model.OwnerId,
             BetPrice = entity.StartPrice,
             Relation = UserAuctionRelation.Owner
         }, cancellationToken);
 
-        // foreach (var photo in model.Photos)
-        // {
-        //     await _photosRepository.CreateAsync(entity.Id, photo.Get, cancellationToken);
-        // }
+        foreach (var photo in model.Photos)
+        {
+            await _photosRepository.CreateAsync(entity.Id, Convert.FromBase64String(photo), cancellationToken);
+        }
         
         return await GetOneAsync(entity.Id, cancellationToken);
     }

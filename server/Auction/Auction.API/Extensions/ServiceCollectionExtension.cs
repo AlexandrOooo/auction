@@ -14,6 +14,8 @@ public static class ServiceCollectionExtension
                 .AddScoped<IAuctionService, AuctionService>()
                 .AddScoped<IBetsRepository, BetsRepository>()
                 .AddScoped<IBetService, BetService>()
-                .AddScoped<IPhotosRepository, PhotosRepository>();
+                .AddScoped<IPhotosRepository, PhotosRepository>()
+                .AddScoped<IUserRepository, UsersRepository>()
+                .AddScoped<IUserService, UserService>();
     }
 }

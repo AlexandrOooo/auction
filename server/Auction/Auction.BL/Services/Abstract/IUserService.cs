@@ -1,11 +1,9 @@
 ﻿using Auction.Common.Models;
-using Auction.DL.Entities;
 
 namespace Auction.BL.Services.Abstract;
 
 public interface IUserService
 {
-    Task RegisterAsync(RegisterUserModels data, string callbackUrl);
-    
-    Task<AuthenticationModels> GenerateTokens(UserEntity user);
+    public Task<UserModel> RegisterAsync(string login, string password, CancellationToken cancellationToken = default);
+    public Task<UserModel> LoginAsync(string login, string password, CancellationToken cancellationToken = default);
 }

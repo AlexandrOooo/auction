@@ -41,6 +41,7 @@ public class BetsRepository : IBetsRepository, IDisposable
         => await _context.UsersAuctions
                          .Include(x => x.User)
                          .Include(x => x.Auction)
+                         .OrderBy(x => x.CreatedAt)
                          .LastOrDefaultAsync(x => x.AuctionId == auctionId && (userId == null || x.UserId == userId),
                              cancellationToken);
 
