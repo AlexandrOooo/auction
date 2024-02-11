@@ -1,8 +1,8 @@
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import { Link } from "react-router-dom";
 import AuctionItem from "../../components/AuctionItem/AuctionItem";
 import styles from "./Main.module.scss";
-import { Auction, AuctionModalType } from "../../@types/types";
+import { AuctionModalType } from "../../@types/types";
 import Header from "../../components/Header/Header";
 import { useSelector } from "react-redux";
 import { selectUser } from "../../redux/slices/user/selectors";
