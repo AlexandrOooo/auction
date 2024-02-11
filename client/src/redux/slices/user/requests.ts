@@ -6,7 +6,6 @@ import myAxios from "../../../axios";
 export const signUp = createAsyncThunk(
   "user/signUp",
   async ({ username, password }: AuthFormData) => {
-    console.log('asyncThunk..')
     const { data } = await myAxios.post("/users/register", {
       login: username,
       password,
@@ -19,8 +18,8 @@ export const signUp = createAsyncThunk(
 export const signIn = createAsyncThunk(
   "user/signIn",
   async ({ username, password }: AuthFormData) => {
-    const { data } = await myAxios.post("/user/login", {
-      username,
+    const { data } = await myAxios.post("/users/login", {
+      login: username,
       password,
     });
 
