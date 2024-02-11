@@ -29,6 +29,11 @@ export enum AuthType {
   signUp = "sign-up",
 }
 
+export interface Bet{
+  user: string,
+  betPrice: number,
+}
+
 export type BetInHistory = {
   username: string,
   bet: number,

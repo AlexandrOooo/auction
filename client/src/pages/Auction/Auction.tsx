@@ -88,7 +88,7 @@ const Auction = () => {
             onChange={(e, newPage: number) => setCurrentTabPage(newPage)}
             aria-label="basic tabs example"
           >
-            <Tab label="Order history" />
+            <Tab label="Bet history" />
             <Tab label="Chat" />
             <Tab label="Lot description" />
           </Tabs>
