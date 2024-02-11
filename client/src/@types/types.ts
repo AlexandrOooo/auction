@@ -34,3 +34,9 @@ export type BetInHistory = {
   bet: number,
   time: number,
 }
+
+
+export type AuthFormData = {
+  username: string;
+  password: string;
+};
