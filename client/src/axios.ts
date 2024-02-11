@@ -5,8 +5,10 @@ const instance = axios.create({
 });
 
 instance.interceptors.request.use((config) => {
-  config.headers.Authorization = `Bearer ${window.localStorage.getItem("token")}`;
-  config.headers['ngrok-skip-browser-warning'] = true;
+  config.headers.Authorization = `Bearer ${window.localStorage.getItem(
+    "token"
+  )}`;
+  config.headers["ngrok-skip-browser-warning"] = true;
 
   return config;
 });

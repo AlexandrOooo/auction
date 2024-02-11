@@ -44,7 +44,7 @@ const Main: React.FC = () => {
                   imageUrl={item.photos[0]}
                   title={item.name}
                   lastBet={item.lastBet}
-                  expiredTime={item.expiredAt}
+                  endAt={item.endAt}
                 />
               </Link>
             </li>

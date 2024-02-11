@@ -66,7 +66,6 @@ const AuctionItemModal: React.FC<AuctionItemModalProps> = ({
   const onSubmit = () => {
     appDispatch(
       createLot({
-        id: Number(id!),
         photos: imagesPreview,
         name: title,
         description,
@@ -87,7 +86,6 @@ const AuctionItemModal: React.FC<AuctionItemModalProps> = ({
   const onEdit = () => {
     appDispatch(
       updateLot({
-        id: Number(id!),
         photos: imagesPreview,
         name: title,
         description,
@@ -110,7 +108,7 @@ const AuctionItemModal: React.FC<AuctionItemModalProps> = ({
         closeAfterTransition
         slots={{ backdrop: Backdrop }}
       >
-        <div className={styles["modal-content"]}>
+        <form className={styles["modal-content"]}>
           <h2>
             {type === AuctionModalType.Create ? "Create modal" : "Edit modal"}
           </h2>
@@ -186,7 +184,7 @@ const AuctionItemModal: React.FC<AuctionItemModalProps> = ({
               <Button onClick={onEdit}>edit</Button>
             )}
           </div>
-        </div>
+        </form>
       </Modal>
     </>
   );
