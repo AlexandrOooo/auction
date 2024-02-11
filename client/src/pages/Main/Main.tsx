@@ -51,15 +51,19 @@ const Main: React.FC = () => {
           ))}
         </ul>
         <div className={styles.pagination}>
-          {currentSheet > 0 ? (
-            <Button variant="contained" onClick={()=>setCurrentSheet(prev => prev - 1)} disabled={currentSheet === 1}>{`< Previous Page`}</Button>
-          ) : (
-            <></>
+          {currentSheet && (
+            <Button
+              variant="contained"
+              onClick={() => setCurrentSheet((prev) => prev - 1)}
+              disabled={currentSheet === 1}
+            >{`< Previous Page`}</Button>
           )}
-          {hasNext ? (
-            <Button variant="contained" onClick={()=>setCurrentSheet(prev => prev + 1)} disabled={!hasNext}>{`Next Page >`}</Button>
-          ) : (
-            <></>
+          {hasNext && (
+            <Button
+              variant="contained"
+              onClick={() => setCurrentSheet((prev) => prev + 1)}
+              disabled={!hasNext}
+            >{`Next Page >`}</Button>
           )}
         </div>
       </main>
