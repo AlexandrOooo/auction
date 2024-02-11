@@ -8,30 +8,28 @@ import {
   TextField,
 } from "@mui/material";
 import React, { useState } from "react";
-import { AuctionModalType } from "../../@types/types";
-import { updateLot } from "../../redux/slices/lots/requests";
+import { useParams } from "react-router-dom";
+import { AuctionFull, AuctionModalType } from "../../@types/types";
+import { createLot, updateLot } from "../../redux/slices/lots/requests";
 import { UseAppDispatch } from "../../redux/store";
 import styles from "./AuctionItemModal.module.scss";
 
 interface AuctionItemModalProps {
   type: AuctionModalType;
-  initialData?: {
-    title: string;
-    description: string;
-    imagePreview: string;
-  };
+  initialData?: AuctionFull;
 }
 
 const AuctionItemModal: React.FC<AuctionItemModalProps> = ({
   type,
   initialData,
 }) => {
-  const [title, setTitle] = useState(initialData?.title ?? "");
+  const { id } = useParams();
+  const [title, setTitle] = useState(initialData?.name ?? "");
   const [description, setDescription] = useState(
     initialData?.description ?? ""
   );
   const [imagePreview, setImagePreview] = useState<string>(
-    initialData?.imagePreview ?? ""
+    initialData?.photos[0] ?? ""
   );
   const [startPrice, setStartPrice] = useState<number>();
   const [open, setOpen] = useState(false);
@@ -61,7 +59,20 @@ const AuctionItemModal: React.FC<AuctionItemModalProps> = ({
     }
   };
 
-  const onSubmit = () => {};
+  const onSubmit = () => {
+    appDispatch(
+      createLot({
+        id: Number(id!),
+        photos: [imagePreview],
+        name: title,
+        description,
+        startPrice: startPrice!,
+      })
+    );
+
+    closeModal();
+    onClean();
+  };
 
   const onClean = () => {
     setTitle("");
@@ -69,17 +80,17 @@ const AuctionItemModal: React.FC<AuctionItemModalProps> = ({
     setImagePreview("");
   };
 
-  const onDelete = () => {};
-
   const onEdit = () => {
     appDispatch(
       updateLot({
-        id: 0,
+        id: Number(id!),
         photos: [imagePreview],
         name: title,
         description,
       })
     );
+    closeModal();
+    onClean();
   };
 
   return (
@@ -150,16 +161,11 @@ const AuctionItemModal: React.FC<AuctionItemModalProps> = ({
           </div>
 
           <div className={styles["modal-actions"]}>
+            <Button onClick={onClean}>reset</Button>
             {type === AuctionModalType.Create ? (
-              <>
-                <Button onClick={onClean}>reset</Button>
-                <Button onClick={onSubmit}>submit</Button>
-              </>
+              <Button onClick={onSubmit}>submit</Button>
             ) : (
-              <>
-                <Button onClick={onDelete}>delete</Button>
-                <Button onClick={onEdit}>edit</Button>
-              </>
+              <Button onClick={onEdit}>edit</Button>
             )}
           </div>
         </div>

@@ -1,5 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { fetchAllLots, fetchLot, updateLot } from "./requests";
+import { createLot, fetchAllLots, fetchLot, updateLot } from "./requests";
 import { Lots } from "./types";
 
 const initialState: Lots = {
@@ -22,6 +22,10 @@ export const lotsSlice = createSlice({
 
     builder.addCase(updateLot.fulfilled, (state, action) => {
       state.lot = action.payload;
+    });
+
+    builder.addCase(createLot.fulfilled, (state, action) => {
+      state.lots = [...state.lots, action.payload];
     });
   },
 });
