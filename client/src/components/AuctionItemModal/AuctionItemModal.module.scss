@@ -26,12 +26,8 @@
 
 .modal-image-block {
   display: flex;
-}
-
-.modal-image {
-  width: 100px;
-  height: 100px;
-  flex-basis: 50%;
+  justify-content: space-between;
+  margin-top: 10px;
 }
 
 .modal-input-image {
@@ -54,4 +50,8 @@
 
 .modal-start-price {
   margin-top: 10px;
+}
+
+.gallery-image {
+  max-height: 100px;
 }
