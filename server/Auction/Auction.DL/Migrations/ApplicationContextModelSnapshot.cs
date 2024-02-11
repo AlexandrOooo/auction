@@ -56,7 +56,7 @@ namespace Auction.DL.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Auctions");
+                    b.ToTable("Auctions", (string)null);
                 });
 
             modelBuilder.Entity("Auction.DL.Entities.PhotoEntity", b =>
@@ -82,7 +82,7 @@ namespace Auction.DL.Migrations
 
                     b.HasIndex("AuctionId");
 
-                    b.ToTable("Photos");
+                    b.ToTable("Photos", (string)null);
                 });
 
             modelBuilder.Entity("Auction.DL.Entities.UserAuctionEntity", b =>
@@ -115,7 +115,7 @@ namespace Auction.DL.Migrations
 
                     b.HasIndex("UserId");
 
-                    b.ToTable("UsersAuctions");
+                    b.ToTable("UsersAuctions", (string)null);
                 });
 
             modelBuilder.Entity("Auction.DL.Entities.UserEntity", b =>
@@ -140,7 +140,7 @@ namespace Auction.DL.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Users");
+                    b.ToTable("Users", (string)null);
                 });
 
             modelBuilder.Entity("Auction.DL.Entities.PhotoEntity", b =>
