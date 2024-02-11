@@ -41,9 +41,18 @@ public class AuctionsController: Controller
 
     [HttpPost]
     [Authorize]
-    public async Task<IActionResult> CreateAsync([FromBody] AuctionDetailModel model, CancellationToken cancellationToken = default)
+    public async Task<IActionResult> CreateAsync([FromBody] CreateAuctionCommand command, [FromForm] List<IFormFile> files, CancellationToken cancellationToken = default)
     {
-        model.OwnerId = Guid.Parse(User.FindFirst(ClaimTypes.Sid)?.Value);
+        AuctionDetailModel model = new()
+        {
+            Name = command.Name,
+            Description = command.Description,
+            StartPrice = command.StartPrice,
+            EndAt = command.EndAt,
+            Photos = command.Photos,
+            OwnerId = Guid.Parse(User.FindFirst(ClaimTypes.Sid)?.Value),
+        };
+
         return Ok(await _auctionService.CreateAsync(model, cancellationToken));
     }
     
