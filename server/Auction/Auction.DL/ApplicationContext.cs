@@ -24,7 +24,7 @@ public class ApplicationContext : DbContext
 
         modelBuilder.Entity<UserAuctionEntity>()
                     .HasOne(x => x.Auction)
-                    .WithMany(x => x.Users)
+                    .WithMany(x => x.Bets)
                     .HasForeignKey(x => x.AuctionId)
                     .OnDelete(DeleteBehavior.Restrict);
 

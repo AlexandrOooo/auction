@@ -3,6 +3,7 @@ using System;
 using Auction.DL;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
@@ -11,9 +12,11 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace Auction.DL.Migrations
 {
     [DbContext(typeof(ApplicationContext))]
-    partial class ApplicationContextModelSnapshot : ModelSnapshot
+    [Migration("20240210183211_AddAuctionIdInPhotos")]
+    partial class AddAuctionIdInPhotos
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -28,7 +31,7 @@ namespace Auction.DL.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uuid");
 
-                    b.Property<DateTime?>("ArchivedAt")
+                    b.Property<DateTime>("ArchivedAt")
                         .HasColumnType("timestamp with time zone");
 
                     b.Property<DateTime>("CreatedAt")
@@ -128,10 +131,6 @@ namespace Auction.DL.Migrations
                         .IsRequired()
                         .HasColumnType("text");
 
-                    b.Property<string>("Password")
-                        .IsRequired()
-                        .HasColumnType("text");
-
                     b.Property<DateTime?>("UpdatedAt")
                         .HasColumnType("timestamp");
 
@@ -154,7 +153,7 @@ namespace Auction.DL.Migrations
             modelBuilder.Entity("Auction.DL.Entities.UserAuctionEntity", b =>
                 {
                     b.HasOne("Auction.DL.Entities.AuctionEntity", "Auction")
-                        .WithMany("Bets")
+                        .WithMany("Users")
                         .HasForeignKey("AuctionId")
                         .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
@@ -172,9 +171,9 @@ namespace Auction.DL.Migrations
 
             modelBuilder.Entity("Auction.DL.Entities.AuctionEntity", b =>
                 {
-                    b.Navigation("Bets");
-
                     b.Navigation("Photos");
+
+                    b.Navigation("Users");
                 });
 
             modelBuilder.Entity("Auction.DL.Entities.UserEntity", b =>
